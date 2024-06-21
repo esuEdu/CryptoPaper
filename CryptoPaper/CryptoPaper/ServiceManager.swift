@@ -7,16 +7,12 @@
 
 import Foundation
 
-class ServiceManager {
-    func fetchCoins(completionHandler: @escaping ([Film]) -> Void) {
-      // Configurar a variável lotsOfFilms
-      var lotsOfFilms: [Film]
-      
-      // Chamar a API com algum código
-      
-      // Usar os dados da API, atribuir um valor a lotsOfFilms
-      
-      // Dar ao manipulador de conclusão a variável lotsOfFilms
-      completionHandler(lotsOfFilms)
+protocol NetworkingService {
+    func fetchData(url: URL, completion: @escaping (Data?, Error?) -> Void)
+}
+
+class ServiceManager: NetworkingService {
+    func fetchData(url: URL, completion: @escaping (Data?, (any Error)?) -> Void) {
+        // Código
     }
 }
