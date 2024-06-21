@@ -11,14 +11,17 @@ import UIKit
 class ViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     
+    // Função que gerencia a API
     private let serviceManager = ServiceManager()
     
+    // Array que contém as moedas
     private var coins: [Coin] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        // chamando API
         fetchCoins()
         
         let button = UIButton(type: .system)
@@ -38,13 +41,16 @@ class ViewController: UIViewController {
         coordinator?.goToSecondView()
     }
     
+    // Função para chamar a API
     private func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let coins):
                     self?.coins = coins
-                    print(coins)
+                    for coin in coins {
+                        print(coin)
+                    }
                 case .failure(let error):
                     print("Failed to fetch coins: \(error)")
                 }
