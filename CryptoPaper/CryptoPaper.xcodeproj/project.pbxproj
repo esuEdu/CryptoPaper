@@ -17,6 +17,7 @@
 		288CA98C2C24A6F200D8E01E /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA98B2C24A6F200D8E01E /* CoinsViewModel.swift */; };
 		288CA98E2C24A6FD00D8E01E /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA98D2C24A6FD00D8E01E /* CoinsModel.swift */; };
 		288CA9902C24A74700D8E01E /* CoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA98F2C24A74700D8E01E /* CoinsView.swift */; };
+		D3DBA2022C24CD7900C32C7D /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		288CA98B2C24A6F200D8E01E /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
 		288CA98D2C24A6FD00D8E01E /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		288CA98F2C24A74700D8E01E /* CoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsView.swift; sourceTree = "<group>"; };
+		D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = CryptoPaper/ServiceManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		288CA97F2C24A44000D8E01E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				288CA9822C24A48C00D8E01E /* Coordinator.swift in Sources */,
 				288CA98C2C24A6F200D8E01E /* CoinsViewModel.swift in Sources */,
 				288CA96B2C249C5900D8E01E /* ViewController.swift in Sources */,
+				D3DBA2022C24CD7900C32C7D /* ServiceManager.swift in Sources */,
 				288CA9672C249C5900D8E01E /* AppDelegate.swift in Sources */,
 				288CA9842C24A4A800D8E01E /* MainCoordinator.swift in Sources */,
 				288CA9692C249C5900D8E01E /* SceneDelegate.swift in Sources */,
