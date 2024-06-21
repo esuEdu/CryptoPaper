@@ -7,6 +7,15 @@
 
 import Foundation
 
+struct WrapperCoins: Codable {
+    let items: [Coin]
+}
+
+struct Coin: Codable {
+    let symbol: String
+    let price: Double
+}
+
 protocol NetworkingService {
     func fetchData(url: URL, completion: @escaping (Data?, Error?) -> Void)
 }
