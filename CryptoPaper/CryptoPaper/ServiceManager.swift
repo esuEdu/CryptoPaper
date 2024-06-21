@@ -13,7 +13,7 @@ struct WrapperCoins: Codable {
 
 struct Coin: Codable {
     let symbol: String
-    let price: Double
+    let price: String
 }
 
 class ServiceManager {
@@ -37,6 +37,7 @@ class ServiceManager {
 
             do {
                 let coins = try JSONDecoder().decode([Coin].self, from: data)
+                print(coins)
                 completion(.success(coins))
             } catch {
                 completion(.failure(error))
