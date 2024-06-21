@@ -18,7 +18,18 @@
 		288CA98E2C24A6FD00D8E01E /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA98D2C24A6FD00D8E01E /* CoinsModel.swift */; };
 		288CA9902C24A74700D8E01E /* CoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA98F2C24A74700D8E01E /* CoinsView.swift */; };
 		D3DBA2022C24CD7900C32C7D /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */; };
+		D3DBA2162C25EA4E00C32C7D /* ServiceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBA2152C25EA4E00C32C7D /* ServiceManagerTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3DBA20B2C25C04D00C32C7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 288CA95B2C249C5900D8E01E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 288CA9622C249C5900D8E01E;
+			remoteInfo = CryptoPaper;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		288CA9632C249C5900D8E01E /* CryptoPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,10 +45,19 @@
 		288CA98D2C24A6FD00D8E01E /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		288CA98F2C24A74700D8E01E /* CoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsView.swift; sourceTree = "<group>"; };
 		D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = CryptoPaper/ServiceManager.swift; sourceTree = SOURCE_ROOT; };
+		D3DBA2072C25C04D00C32C7D /* CryptoPaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoPaperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3DBA2152C25EA4E00C32C7D /* ServiceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		288CA9602C249C5900D8E01E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3DBA2042C25C04D00C32C7D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				288CA9652C249C5900D8E01E /* CryptoPaper */,
+				D3DBA2082C25C04D00C32C7D /* CryptoPaperTests */,
 				288CA9642C249C5900D8E01E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				288CA9632C249C5900D8E01E /* CryptoPaper.app */,
+				D3DBA2072C25C04D00C32C7D /* CryptoPaperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +176,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D3DBA2082C25C04D00C32C7D /* CryptoPaperTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3DBA2152C25EA4E00C32C7D /* ServiceManagerTests.swift */,
+			);
+			path = CryptoPaperTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,6 +204,24 @@
 			productReference = 288CA9632C249C5900D8E01E /* CryptoPaper.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D3DBA2062C25C04D00C32C7D /* CryptoPaperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3DBA20D2C25C04D00C32C7D /* Build configuration list for PBXNativeTarget "CryptoPaperTests" */;
+			buildPhases = (
+				D3DBA2032C25C04D00C32C7D /* Sources */,
+				D3DBA2042C25C04D00C32C7D /* Frameworks */,
+				D3DBA2052C25C04D00C32C7D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3DBA20C2C25C04D00C32C7D /* PBXTargetDependency */,
+			);
+			name = CryptoPaperTests;
+			productName = CryptoPaperTests;
+			productReference = D3DBA2072C25C04D00C32C7D /* CryptoPaperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -186,6 +234,11 @@
 				TargetAttributes = {
 					288CA9622C249C5900D8E01E = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					D3DBA2062C25C04D00C32C7D = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
+						TestTargetID = 288CA9622C249C5900D8E01E;
 					};
 				};
 			};
@@ -203,6 +256,7 @@
 			projectRoot = "";
 			targets = (
 				288CA9622C249C5900D8E01E /* CryptoPaper */,
+				D3DBA2062C25C04D00C32C7D /* CryptoPaperTests */,
 			);
 		};
 /* End PBXProject section */
@@ -214,6 +268,13 @@
 			files = (
 				288CA9702C249C5B00D8E01E /* Assets.xcassets in Resources */,
 				288CA9732C249C5B00D8E01E /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3DBA2052C25C04D00C32C7D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +297,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3DBA2032C25C04D00C32C7D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3DBA2162C25EA4E00C32C7D /* ServiceManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3DBA20C2C25C04D00C32C7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 288CA9622C249C5900D8E01E /* CryptoPaper */;
+			targetProxy = D3DBA20B2C25C04D00C32C7D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		288CA9712C249C5B00D8E01E /* LaunchScreen.storyboard */ = {
@@ -376,7 +453,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SVGXRR5RRA;
+				DEVELOPMENT_TEAM = BNMNXQ97LQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoPaper/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -403,7 +480,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SVGXRR5RRA;
+				DEVELOPMENT_TEAM = BNMNXQ97LQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoPaper/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -420,6 +497,45 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D3DBA20E2C25C04D00C32C7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BNMNXQ97LQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Gabriel.CryptoPaperTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CryptoPaper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CryptoPaper";
+			};
+			name = Debug;
+		};
+		D3DBA20F2C25C04D00C32C7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BNMNXQ97LQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Gabriel.CryptoPaperTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CryptoPaper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CryptoPaper";
 			};
 			name = Release;
 		};
@@ -440,6 +556,15 @@
 			buildConfigurations = (
 				288CA9782C249C5B00D8E01E /* Debug */,
 				288CA9792C249C5B00D8E01E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3DBA20D2C25C04D00C32C7D /* Build configuration list for PBXNativeTarget "CryptoPaperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3DBA20E2C25C04D00C32C7D /* Debug */,
+				D3DBA20F2C25C04D00C32C7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
