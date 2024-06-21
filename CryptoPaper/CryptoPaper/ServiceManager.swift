@@ -16,12 +16,33 @@ struct Coin: Codable {
     let price: Double
 }
 
-protocol NetworkingService {
-    func fetchData(url: URL, completion: @escaping (Data?, Error?) -> Void)
-}
+class ServiceManager {
+    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> Void) {
+        let urlString = "https://api.binance.com/api/v3/ticker/price"
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
 
-class ServiceManager: NetworkingService {
-    func fetchData(url: URL, completion: @escaping (Data?, (any Error)?) -> Void) {
-        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data"])))
+                return
+            }
+
+            do {
+                let coins = try JSONDecoder().decode([Coin].self, from: data)
+                completion(.success(coins))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
+        task.resume()
     }
 }
