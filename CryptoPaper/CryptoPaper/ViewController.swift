@@ -36,6 +36,27 @@ class ViewController: UIViewController {
         ])
     }
 
+
+    @objc func goToSecondView() {
+        coordinator?.goToSecondView()
+    }
+    
+    // Função para chamar a API
+    private func fetchCoins() {
+        serviceManager.fetchCoins { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let coins):
+                    self?.coins = coins
+                    print("Success fetching coins.")
+                case .failure(let error):
+                    print("Failed to fetch coins: \(error)")
+                }
+            }
+        }
+    }
+
+ 
 }
 
 
