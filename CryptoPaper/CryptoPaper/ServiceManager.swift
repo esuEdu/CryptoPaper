@@ -20,8 +20,6 @@ class ServiceManager {
         self.session = session
     }
     
-    
-    
     func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> Void) {
         // Configurando a URL
         let urlString = "https://api.binance.com/api/v3/ticker/price"
@@ -31,7 +29,7 @@ class ServiceManager {
         }
         
         // Criando a task para chamada da API
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -54,7 +52,6 @@ class ServiceManager {
                 }
                 
                 completion(.success(coins))
-                
             } catch {
                 completion(.failure(error))
             }
