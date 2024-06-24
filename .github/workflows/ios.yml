@@ -1,0 +1,62 @@
+name: iOS CI
+
+on:
+  push:
+    branches: 
+      - "developer"
+      - "main"
+  pull_request:
+    branches: 
+      - "developer"
+      - "main"
+
+jobs:
+  build-and-test:
+    name: Build and Test on iOS Simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby for CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install CocoaPods dependencies
+        run: |
+          bundle install
+          pod install
+
+      - name: Determine default scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default > default_scheme.txt
+          echo "Using default scheme: $default"
+
+      - name: Build for testing
+        env:
+          SCHEME: ${{ secrets.DEFAULT_SCHEME }}
+        run: |
+          SCHEME=$(cat default_scheme.txt)
+          xcodebuild clean build-for-testing \
+            -workspace YourWorkspace.xcworkspace \
+            -scheme "$SCHEME" \
+            -destination 'platform=iOS Simulator,name=iPhone 12,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests
+        env:
+          SCHEME: ${{ secrets.DEFAULT_SCHEME }}
+        run: |
+          SCHEME=$(cat default_scheme.txt)
+          xcodebuild test-without-building \
+            -workspace CryptoPaper.xcworkspace \
+            -scheme "$SCHEME" \
+            -destination 'platform=iOS Simulator,name=iPhone 12,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO
