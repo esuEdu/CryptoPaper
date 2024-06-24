@@ -48,9 +48,7 @@ class ViewController: UIViewController {
                 switch result {
                 case .success(let coins):
                     self?.coins = coins
-                    for coin in coins {
-                        print(coin)
-                    }
+                    print("Success fetching coins.")
                 case .failure(let error):
                     print("Failed to fetch coins: \(error)")
                 }
