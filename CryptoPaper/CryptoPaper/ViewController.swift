@@ -26,7 +26,6 @@ class ViewController: UIViewController {
         
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
-        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -37,26 +36,6 @@ class ViewController: UIViewController {
         ])
     }
 
-    @objc func goToSecondView() {
-        coordinator?.goToSecondView()
-    }
-    
-    // Função para chamar a API
-    private func fetchCoins() {
-        serviceManager.fetchCoins { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let coins):
-                    self?.coins = coins
-                    for coin in coins {
-                        print(coin)
-                    }
-                case .failure(let error):
-                    print("Failed to fetch coins: \(error)")
-                }
-            }
-        }
-    }
 }
 
 
