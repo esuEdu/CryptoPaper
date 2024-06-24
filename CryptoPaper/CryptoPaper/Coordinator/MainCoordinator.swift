@@ -18,13 +18,9 @@ final class MainCoordinator: Coordinator {
 
     
     func start() {
-        let view = ViewController()
-        view.coordinator = self
-        navigationController.pushViewController(view, animated: true)
-    }
-    
-    func goToSecondView() {
-        let view = CoinsView()
+        let viewModel = CoinsViewModel(coordinator: self)
+        let view = CoinsView(CoinsViewModel: viewModel)
+        
         navigationController.pushViewController(view, animated: true)
     }
 }
