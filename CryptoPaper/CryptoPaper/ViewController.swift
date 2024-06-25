@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private let serviceManager = ServiceManager()
     
     // Array que contém as moedas
-    private var coins: [Coin] = []
+    private var coins: [CoinWrapper] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
                 
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
-        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
