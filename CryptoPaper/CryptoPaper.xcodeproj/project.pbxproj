@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2882E9C92C2A08E90095E0BA /* CryptoPaperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882E9C82C2A08E90095E0BA /* CryptoPaperUITests.swift */; };
+		2882E9CB2C2A08E90095E0BA /* CryptoPaperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882E9CA2C2A08E90095E0BA /* CryptoPaperUITestsLaunchTests.swift */; };
+		2882E9D22C2AE0100095E0BA /* CoinsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2882E9D12C2AE0100095E0BA /* CoinsListView.swift */; };
 		288CA9672C249C5900D8E01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA9662C249C5900D8E01E /* AppDelegate.swift */; };
 		288CA9692C249C5900D8E01E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA9682C249C5900D8E01E /* SceneDelegate.swift */; };
 		288CA96B2C249C5900D8E01E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288CA96A2C249C5900D8E01E /* ViewController.swift */; };
@@ -32,6 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2882E9C62C2A08E90095E0BA /* CryptoPaperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoPaperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2882E9C82C2A08E90095E0BA /* CryptoPaperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoPaperUITests.swift; sourceTree = "<group>"; };
+		2882E9CA2C2A08E90095E0BA /* CryptoPaperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoPaperUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2882E9D12C2AE0100095E0BA /* CoinsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsListView.swift; sourceTree = "<group>"; };
 		288CA9632C249C5900D8E01E /* CryptoPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		288CA9662C249C5900D8E01E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		288CA9682C249C5900D8E01E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +74,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2882E9C72C2A08E90095E0BA /* CryptoPaperUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2882E9C82C2A08E90095E0BA /* CryptoPaperUITests.swift */,
+				2882E9CA2C2A08E90095E0BA /* CryptoPaperUITestsLaunchTests.swift */,
+				2882E9D12C2AE0100095E0BA /* CoinsListView.swift */,
+			);
+			path = CryptoPaperUITests;
+			sourceTree = "<group>";
+		};
 		288CA95A2C249C5900D8E01E = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +298,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2882E9C22C2A08E90095E0BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2882E9D22C2AE0100095E0BA /* CoinsListView.swift in Sources */,
+				2882E9CB2C2A08E90095E0BA /* CryptoPaperUITestsLaunchTests.swift in Sources */,
+				2882E9C92C2A08E90095E0BA /* CryptoPaperUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		288CA95F2C249C5900D8E01E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
