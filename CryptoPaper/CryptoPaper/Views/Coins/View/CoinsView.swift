@@ -5,49 +5,82 @@
 //  Created by Eduardo on 20/06/24.
 //
 
-import Foundation
 import UIKit
+import Combine
 
-
-class CoinsView: UIViewController {
+class CoinsListView: UIViewController {
     
-    weak var CoinsViewModel: CoinsViewModel?
+    weak var coordinator: MainCoordinator?
     
-    init(CoinsViewModel: CoinsViewModel? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.CoinsViewModel = CoinsViewModel
-    }
+    private var viewModel = CoinsViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    
+    private let tableView = UITableView()
+    private let balanceLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-
         
-        // Create a UILabel
-        let helloLabel = UILabel()
-        
-        // Set the text of the label
-        helloLabel.text = "test"
-        
-        // Set the font and size of the text
-        helloLabel.font = UIFont.systemFont(ofSize: 24)
-        
-        helloLabel.textColor = .red
-        
-        // Enable auto layout for the label
-        helloLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add the label to the view
-        view.addSubview(helloLabel)
-        
-        // Center the label horizontally and vertically in the view
-        NSLayoutConstraint.activate([
-            helloLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            helloLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        setupUI()
+        bindViewModel()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func setupUI() {
+        view.backgroundColor = .white
+        
+        self.title = "Coins"
+        
+        balanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        balanceLabel.textAlignment = .center
+        balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        balanceLabel.accessibilityIdentifier = "Balance" // Add this line
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CoinCell")
+        tableView.dataSource = self
+        tableView.accessibilityIdentifier = "Coin Table" // Add this line
+        
+        view.addSubview(balanceLabel)
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
+            
+            tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func bindViewModel() {
+        viewModel.$totalBalance
+            .receive(on: RunLoop.main)
+            .sink { [weak self] totalBalance in
+                self?.balanceLabel.text = String(format: "Balance: $%.2f", totalBalance)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$coins
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+}
+
+extension CoinsListView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.coins.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath)
+        let coin = viewModel.coins[indexPath.row]
+        cell.textLabel?.text = "\(coin.symbol): $\(coin.price)"
+        return cell
     }
 }
