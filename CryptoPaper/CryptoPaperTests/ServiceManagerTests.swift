@@ -8,7 +8,41 @@
 import XCTest
 @testable import CryptoPaper
 
-// MARK: Mock do URLSession
+// MARK: Testes do ServiceManager (API da Binance)
+/// Teste sem mock
+class ServiceManagerTests: XCTestCase {
+    private var manager: ServiceManager! // ServiceManager (API)
+    
+    // Build the objects that we're gonna use
+    override func setUpWithError() throws {
+        manager = ServiceManager()
+    }
+    
+    // Destroy the objects that we're not gonna use anymore
+    override func tearDownWithError() throws {
+        manager = nil
+    }
+    
+    func testAPIRequest() {
+    // Essa função testa se a API está dando alguma resposta e se o Service Manager está salvando corretamente os valores vindos do JSON
+        manager.fetchCoins { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let coins):
+                    XCTAssertGreaterThan(coins.count, 0) // Checa se o array não está vazio
+                    /// Checa se as informações das moedas foram salvas corretamente
+                    XCTAssertNotNil(coins[0].symbol)
+                    XCTAssertNotNil(coins[1].price)
+                case .failure(let error):
+                    XCTFail("Failed to fetch coins: \(error)")
+                }
+            }
+        }
+    }
+}
+
+// MARK: Testes do ServiceManager com Mock (API da Binance)
+/// Mock do URLSession
 class MockURLSessionDataTask: URLSessionDataTask {
     override func resume() {
         // Aqui iniciaria a chamada de rede, mas não vai fazer nada.
@@ -25,8 +59,8 @@ class MockURLSession: URLSession {
     }
 }
 
-// MARK: Testes do ServiceManager (API da Binance)
-class ServiceManagerTests: XCTestCase {
+/// Testes com Mock
+class ServiceManagerTestsMock: XCTestCase {
     private var manager: ServiceManager! // ServiceManager (API)
     private var mockURLSession: MockURLSession! // Mock do URLSession
     
@@ -43,6 +77,7 @@ class ServiceManagerTests: XCTestCase {
     }
     
     func testFetchCoinsSuccess() {
+    // Essa função testa se o ServiceManager está salvando corretamente os valores vindos do JSON
         
         // Dados simulados
         let jsonString = """
@@ -71,6 +106,7 @@ class ServiceManagerTests: XCTestCase {
     }
 
     func testFetchCoinsFailure() {
+    // Essa função testa se o Service Manager detecta erros corretamente
         
         // Definindo o erro simulado
         mockURLSession.nextError = NSError(domain: "test", code: -1, userInfo: nil)
