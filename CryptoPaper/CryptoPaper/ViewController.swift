@@ -15,17 +15,15 @@ class ViewController: UIViewController {
     private let serviceManager = ServiceManager()
     
     // Array que contém as moedas
-    private var coins: [Coin] = []
+    private var coins: [CoinWrapper] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        // chamando API
-//        fetchCoins()
-        
+                
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
+//        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -36,6 +34,25 @@ class ViewController: UIViewController {
         ])
     }
 
+
+//    @objc func goToSecondView() {
+//        coordinator?.goToSecondView()
+//    }
+    
+    // Função para chamar a API
+    private func fetchCoins() {
+        serviceManager.fetchCoins { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let coins):
+                    self?.coins = coins
+                    print("Success fetching coins.")
+                case .failure(let error):
+                    print("Failed to fetch coins: \(error)")
+                }
+            }
+        }
+    }
 }
 
 

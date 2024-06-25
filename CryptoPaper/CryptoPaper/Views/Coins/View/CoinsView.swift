@@ -5,70 +5,82 @@
 //  Created by Eduardo on 20/06/24.
 //
 
-import Foundation
 import UIKit
+import Combine
 
-
-class CoinsView: UIViewController {
+class CoinsListView: UIViewController {
     
     weak var coordinator: MainCoordinator?
     
-    weak var CoinsViewModel: CoinsViewModel?
+    private var viewModel = CoinsViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
-    init(CoinsViewModel: CoinsViewModel? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.CoinsViewModel = CoinsViewModel
-    }
+    private let tableView = UITableView()
+    private let balanceLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
+        bindViewModel()
+    }
+    
+    private func setupUI() {
         view.backgroundColor = .white
-
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Ir para CoinView", for: .normal)
-        button.backgroundColor = .blue
         
-        button.addTarget(self, action: #selector(goToCoinView), for: .touchUpInside)
+        self.title = "Coins"
         
-        // Create a UILabel
-        let helloLabel = UILabel()
+        balanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        balanceLabel.textAlignment = .center
+        balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        balanceLabel.accessibilityIdentifier = "Balance" // Add this line
         
-        // Set the text of the label
-        helloLabel.text = "test"
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CoinCell")
+        tableView.dataSource = self
+        tableView.accessibilityIdentifier = "Coin Table" // Add this line
         
-        // Set the font and size of the text
-        helloLabel.font = UIFont.systemFont(ofSize: 24)
+        view.addSubview(balanceLabel)
+        view.addSubview(tableView)
         
-        helloLabel.textColor = .red
-        
-        // Enable auto layout for the label
-        helloLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add the label to the view
-        view.addSubview(helloLabel)
-        view.addSubview(button)
-        
-        // Center the label horizontally and vertically in the view
         NSLayoutConstraint.activate([
-            helloLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            helloLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            helloLabel.widthAnchor.constraint(equalToConstant: 200),
+            balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
             
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 30),
-            button.widthAnchor.constraint(equalToConstant: 100),
+            tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    private func bindViewModel() {
+        viewModel.$totalBalance
+            .receive(on: RunLoop.main)
+            .sink { [weak self] totalBalance in
+                self?.balanceLabel.text = String(format: "Balance: $%.2f", totalBalance)
+            }
+            .store(in: &cancellables)
         
-        
+        viewModel.$coins
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+}
+
+extension CoinsListView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.coins.count
     }
     
-    @objc func goToCoinView() {
-        coordinator?.goToCoinView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath)
+        let coin = viewModel.coins[indexPath.row]
+        cell.textLabel?.text = "\(coin.symbol): $\(coin.price)"
+        return cell
     }
 }
