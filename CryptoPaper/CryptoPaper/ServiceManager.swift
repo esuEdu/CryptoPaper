@@ -46,10 +46,10 @@ class ServiceManager {
                 // Array de moedas
                 let coins = try JSONDecoder().decode([Coin].self, from: data)
                 
-                // Printando as moedas para garantir
-                for coin in coins {
-                    print(coin)
-                }
+//                // Printando as moedas para garantir
+//                for coin in coins {
+//                    print(coin)
+//                }
                 
                 completion(.success(coins))
             } catch {
