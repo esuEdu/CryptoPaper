@@ -81,10 +81,12 @@ class ServiceManagerTestsMock: XCTestCase {
         
         // Dados simulados
         let jsonString = """
-        [
-            { "symbol": "ETHBTC", "price": "0.05475000" },
-            { "symbol": "LTCBTC", "price": "0.00114700" }
-        ]
+            [
+                { "symbol": "ETHBTC", "price": "0.05475000" },
+                { "symbol": "LTCBTC", "price": "0.00114700" },
+                { "symbol": "LTCUSDT", "price": "0.0123124" },
+                { "symbol": "SEXOUSDT", "price": "0.32323224" }
+            ]
         """
         
         // Passando os dados simulados para o mock
@@ -95,10 +97,8 @@ class ServiceManagerTestsMock: XCTestCase {
             switch result {
             case .success(let coins):
                 XCTAssertEqual(coins.count, 2)
-                XCTAssertEqual(coins[0].symbol, "ETHBTC")
-                XCTAssertEqual(coins[0].price, "0.05475000")
-                XCTAssertEqual(coins[1].symbol, "LTCBTC")
-                XCTAssertEqual(coins[1].price, "0.00114700")
+                XCTAssertEqual(coins[0].symbol, "LTC")
+                XCTAssertEqual(coins[1].symbol, "SEXO")
             case .failure(let error):
                 XCTFail("Expected success, got \(error) instead")
             }
