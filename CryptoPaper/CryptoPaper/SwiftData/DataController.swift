@@ -14,7 +14,7 @@ class DataController {
 
     private init() {
         do {
-            container = try ModelContainer(for: Coins.self, User.self, Transactions.self)
+            container = try ModelContainer(for: Coin.self, User.self, Transactions.self)
         } catch {
             fatalError("Failed to initialize the model container: \(error)")
         }

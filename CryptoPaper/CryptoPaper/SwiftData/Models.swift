@@ -9,13 +9,17 @@ import Foundation
 import SwiftData
 
 
-class Coin: Decodable {
+struct CoinWrapper: Codable {
      var symbol: String
      var price: String
+    
+    mutating func filter() {
+        
+    }
 }
 
 @Model
-class Coins{
+class Coin {
     @Attribute var name: String
     @Attribute var amount: Double
     
@@ -27,9 +31,9 @@ class Coins{
 
 @Model
 class User {
-    @Relationship var coins: [Coins]
+    @Relationship var coins: [Coin]
     
-    init(coins: [Coins]) {
+    init(coins: [Coin]) {
         self.coins = coins
     }
 }
@@ -38,10 +42,10 @@ class User {
 class Transactions {
     @Attribute var id: UUID
     @Attribute var date: Date
-    @Relationship var coinBought: Coins
-    @Relationship var coinSold: Coins
+    @Relationship var coinBought: Coin
+    @Relationship var coinSold: Coin
     
-    init(id: UUID, date: Date, coinBought: Coins, coinSold: Coins) {
+    init(id: UUID, date: Date, coinBought: Coin, coinSold: Coin) {
         self.id = id
         self.date = date
         self.coinBought = coinBought

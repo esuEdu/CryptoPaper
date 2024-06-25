@@ -16,7 +16,15 @@ class ServiceManager {
         self.session = session
     }
     
-    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> Void) {
+    private func filterCoins(coins: [CoinWrapper], filter: String = "USDT") -> [CoinWrapper] {
+        if filter == "" {
+            return coins
+        }
+        return coins.filter { $0.symbol.hasSuffix(filter) }
+            .map { CoinWrapper(symbol: String($0.symbol.dropLast(4)), price: $0.price) }
+    }
+    
+    func fetchCoins(completion: @escaping (Result<[CoinWrapper], Error>) -> Void) {
         // Configurando a URL
         let urlString = "https://api.binance.com/api/v3/ticker/price"
         guard let url = URL(string: urlString) else {
@@ -40,12 +48,15 @@ class ServiceManager {
             // Decodificando os dados. Se não der certo, ele retorna um erro.
             do {
                 // Array de moedas
-                let coins = try JSONDecoder().decode([Coin].self, from: data)
+                var coins = try JSONDecoder().decode([CoinWrapper].self, from: data)
                 
-//                // Printando as moedas para garantir
-//                for coin in coins {
-//                    print(coin)
-//                }
+                // Filtrando
+                coins = self.filterCoins(coins: coins)
+                
+                // Printando as moedas para garantir
+                for coin in coins {
+                    print(coin)
+                }
                 
                 completion(.success(coins))
             } catch {
@@ -56,4 +67,12 @@ class ServiceManager {
         // Inicia a task para chamar a API.
         task.resume()
     }
+    
+//    func filterAndUnwrappCoins(coins: [CoinWrapper]) -> [Coin] {
+//        var unwrappedCoins: Array<Coin> = [] // Array
+//        for coin in coins {
+//            unwrappedCoins.append(Coin(name: coin.symbol, amount: Double(coin.price)!)) // Adicionando coin unwrapped
+//        }
+//        return unwrappedCoins
+//    }
 }

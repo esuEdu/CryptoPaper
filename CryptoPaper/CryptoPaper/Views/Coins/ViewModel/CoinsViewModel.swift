@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class CoinsViewModel {
-    @Published var coins: [Coin] = []
+    @Published var coins: [CoinWrapper] = []
     @Published var totalBalance: Double = 0.0
     
     private var cancellables = Set<AnyCancellable>()
