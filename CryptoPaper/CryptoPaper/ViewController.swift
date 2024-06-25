@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
+        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -35,7 +36,6 @@ class ViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-
 
     @objc func goToSecondView() {
         coordinator?.goToSecondView()
@@ -55,8 +55,6 @@ class ViewController: UIViewController {
             }
         }
     }
-
- 
 }
 
 

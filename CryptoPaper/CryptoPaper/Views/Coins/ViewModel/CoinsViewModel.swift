@@ -6,13 +6,3 @@
 //
 
 import Foundation
-
-class CoinsViewModel {
-    weak var coordinator: MainCoordinator?
-    
-    init(coordinator: MainCoordinator? = nil) {
-        self.coordinator = coordinator
-    }
-    
-    
-}
