@@ -9,6 +9,7 @@ import Foundation
 
 
 class ServiceManager {
+    
     private var session: URLSession
     
     init(session: URLSession = URLSession.shared) {

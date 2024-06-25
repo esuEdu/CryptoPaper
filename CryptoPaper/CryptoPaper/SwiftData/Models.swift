@@ -6,25 +6,46 @@
 //
 
 import Foundation
+import SwiftData
 
-// Model da moeda, que mexe direto com a API
-struct Coin: Codable {
-    let symbol: String
-    let price: String
+
+class Coin: Decodable {
+     var symbol: String
+     var price: String
 }
 
-struct Coins {
-    let name: String
-    let amount: Double
+@Model
+class Coins{
+    @Attribute var name: String
+    @Attribute var amount: Double
+    
+    init(name: String, amount: Double) {
+        self.name = name
+        self.amount = amount
+    }
 }
 
-struct Users {
-    let coins: Coins
+@Model
+class User {
+    @Relationship var coins: [Coins]
+    
+    init(coins: [Coins]) {
+        self.coins = coins
+    }
 }
 
-struct Transactions {
-    let id: UUID
-    let date: Date
-    let coinBought: Coins
-    let coinSold: Coins
+@Model
+class Transactions {
+    @Attribute var id: UUID
+    @Attribute var date: Date
+    @Relationship var coinBought: Coins
+    @Relationship var coinSold: Coins
+    
+    init(id: UUID, date: Date, coinBought: Coins, coinSold: Coins) {
+        self.id = id
+        self.date = date
+        self.coinBought = coinBought
+        self.coinSold = coinSold
+    }
+    
 }
