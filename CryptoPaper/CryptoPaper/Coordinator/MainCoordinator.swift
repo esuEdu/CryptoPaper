@@ -16,11 +16,20 @@ final class MainCoordinator: Coordinator {
         self.navigationController = navigationController
     }
 
-    
     func start() {
         let viewModel = CoinsViewModel(coordinator: self)
         let view = CoinsView(CoinsViewModel: viewModel)
+        view.coordinator = self
         
         navigationController.pushViewController(view, animated: true)
     }
+    
+    func goToCoinView() {
+        let viewModel = CoinViewModel(coordinator: self)
+        let view = CoinView(coinViewModel: viewModel)
+        
+        navigationController.present(view, animated: true)
+    }
+    
+    
 }

@@ -14,5 +14,8 @@ class CoinsViewModel {
         self.coordinator = coordinator
     }
     
+    func goToCoinView() {
+        coordinator?.goToCoinView()
+    }
     
 }

@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         
         // chamando API
-        fetchCoins()
+//        fetchCoins()
         
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
