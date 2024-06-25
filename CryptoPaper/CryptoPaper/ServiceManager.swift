@@ -17,9 +17,12 @@ class ServiceManager {
     }
     
     private func filterCoins(coins: [CoinWrapper], filter: String = "USDT") -> [CoinWrapper] {
+        // Se o filtro for vazio, ele retorna sem filtrar
         if filter == "" {
             return coins
         }
+        
+        // Filtra pelas últimas letras, de acordo com a String de filtro, e então remove do nome essas letras
         return coins.filter { $0.symbol.hasSuffix(filter) }
             .map { CoinWrapper(symbol: String($0.symbol.dropLast(4)), price: $0.price) }
     }
@@ -67,12 +70,4 @@ class ServiceManager {
         // Inicia a task para chamar a API.
         task.resume()
     }
-    
-//    func filterAndUnwrappCoins(coins: [CoinWrapper]) -> [Coin] {
-//        var unwrappedCoins: Array<Coin> = [] // Array
-//        for coin in coins {
-//            unwrappedCoins.append(Coin(name: coin.symbol, amount: Double(coin.price)!)) // Adicionando coin unwrapped
-//        }
-//        return unwrappedCoins
-//    }
 }
