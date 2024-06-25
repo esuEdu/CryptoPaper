@@ -7,13 +7,9 @@
 
 import Foundation
 
-// Model da moeda
-struct Coin: Codable {
-    let symbol: String
-    let price: String
-}
 
 class ServiceManager {
+    
     private var session: URLSession
     
     init(session: URLSession = URLSession.shared) {
