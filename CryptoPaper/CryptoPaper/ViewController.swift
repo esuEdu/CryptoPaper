@@ -20,13 +20,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        // chamando API
-        fetchCoins()
-        
+                
         let button = UIButton(type: .system)
         button.setTitle("Go to Second View", for: .normal)
-        button.addTarget(self, action: #selector(goToSecondView), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -36,6 +32,7 @@ class ViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+
 
     @objc func goToSecondView() {
         coordinator?.goToSecondView()
@@ -48,15 +45,15 @@ class ViewController: UIViewController {
                 switch result {
                 case .success(let coins):
                     self?.coins = coins
-                    for coin in coins {
-                        print(coin)
-                    }
+                    print("Success fetching coins.")
                 case .failure(let error):
                     print("Failed to fetch coins: \(error)")
                 }
             }
         }
     }
+
+ 
 }
 
 
