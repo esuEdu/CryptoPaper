@@ -14,12 +14,10 @@ class DataController {
 
     private init() {
         do {
-            // Corrigindo com o rótulo de argumento 'for:'
             container = try ModelContainer(for: Coins.self, User.self, Transactions.self)
         } catch {
             fatalError("Failed to initialize the model container: \(error)")
         }
     }
-    
     
 }

@@ -34,9 +34,9 @@ class ViewController: UIViewController {
     }
 
 
-    @objc func goToSecondView() {
-        coordinator?.goToSecondView()
-    }
+//    @objc func goToSecondView() {
+//        coordinator?.goToSecondView()
+//    }
     
     // Função para chamar a API
     private func fetchCoins() {
