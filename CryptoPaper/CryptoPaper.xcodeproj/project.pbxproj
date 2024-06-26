@@ -29,11 +29,38 @@
 		B3D036632C2C3C3300ACE5D0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0365C2C2C3C3300ACE5D0 /* CustomCell.swift */; };
 		B3D036642C2C3C3300ACE5D0 /* ExtractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0365D2C2C3C3300ACE5D0 /* ExtractView.swift */; };
 		B3D036652C2C3C3300ACE5D0 /* ExtractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0365F2C2C3C3300ACE5D0 /* ExtractViewModel.swift */; };
+		B3D0367D2C2C931A00ACE5D0 /* ExtractViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0367C2C2C931A00ACE5D0 /* ExtractViewUITests.swift */; };
+		B3D0367F2C2C931A00ACE5D0 /* ExtractViewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0367E2C2C931A00ACE5D0 /* ExtractViewUITestsLaunchTests.swift */; };
+		B3D0368C2C2C933A00ACE5D0 /* CoinsListViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0368B2C2C933A00ACE5D0 /* CoinsListViewUITests.swift */; };
+		B3D0368E2C2C933A00ACE5D0 /* CoinsListViewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0368D2C2C933A00ACE5D0 /* CoinsListViewUITestsLaunchTests.swift */; };
+		B3D0369B2C2C935400ACE5D0 /* CoinViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0369A2C2C935400ACE5D0 /* CoinViewUITests.swift */; };
+		B3D0369D2C2C935400ACE5D0 /* CoinViewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0369C2C2C935400ACE5D0 /* CoinViewUITestsLaunchTests.swift */; };
 		D3DBA2022C24CD7900C32C7D /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */; };
 		D3DBA2162C25EA4E00C32C7D /* ServiceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBA2152C25EA4E00C32C7D /* ServiceManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B3D036802C2C931A00ACE5D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 288CA95B2C249C5900D8E01E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 288CA9622C249C5900D8E01E;
+			remoteInfo = CryptoPaper;
+		};
+		B3D0368F2C2C933A00ACE5D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 288CA95B2C249C5900D8E01E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 288CA9622C249C5900D8E01E;
+			remoteInfo = CryptoPaper;
+		};
+		B3D0369E2C2C935400ACE5D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 288CA95B2C249C5900D8E01E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 288CA9622C249C5900D8E01E;
+			remoteInfo = CryptoPaper;
+		};
 		D3DBA20B2C25C04D00C32C7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 288CA95B2C249C5900D8E01E /* Project object */;
@@ -68,6 +95,15 @@
 		B3D0365C2C2C3C3300ACE5D0 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B3D0365D2C2C3C3300ACE5D0 /* ExtractView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractView.swift; sourceTree = "<group>"; };
 		B3D0365F2C2C3C3300ACE5D0 /* ExtractViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractViewModel.swift; sourceTree = "<group>"; };
+		B3D0367A2C2C931A00ACE5D0 /* ExtractViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExtractViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D0367C2C2C931A00ACE5D0 /* ExtractViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractViewUITests.swift; sourceTree = "<group>"; };
+		B3D0367E2C2C931A00ACE5D0 /* ExtractViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B3D036892C2C933A00ACE5D0 /* CoinsListViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinsListViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D0368B2C2C933A00ACE5D0 /* CoinsListViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsListViewUITests.swift; sourceTree = "<group>"; };
+		B3D0368D2C2C933A00ACE5D0 /* CoinsListViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsListViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B3D036982C2C935400ACE5D0 /* CoinViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D0369A2C2C935400ACE5D0 /* CoinViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewUITests.swift; sourceTree = "<group>"; };
+		B3D0369C2C2C935400ACE5D0 /* CoinViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D3DBA2012C24CD7900C32C7D /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = CryptoPaper/ServiceManager.swift; sourceTree = SOURCE_ROOT; };
 		D3DBA2072C25C04D00C32C7D /* CryptoPaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoPaperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3DBA2152C25EA4E00C32C7D /* ServiceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManagerTests.swift; sourceTree = "<group>"; };
@@ -75,6 +111,27 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		288CA9602C249C5900D8E01E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036772C2C931A00ACE5D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036862C2C933A00ACE5D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036952C2C935400ACE5D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -96,6 +153,9 @@
 			children = (
 				288CA9652C249C5900D8E01E /* CryptoPaper */,
 				D3DBA2082C25C04D00C32C7D /* CryptoPaperTests */,
+				B3D0367B2C2C931A00ACE5D0 /* ExtractViewUITests */,
+				B3D0368A2C2C933A00ACE5D0 /* CoinsListViewUITests */,
+				B3D036992C2C935400ACE5D0 /* CoinViewUITests */,
 				288CA9642C249C5900D8E01E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +165,9 @@
 			children = (
 				288CA9632C249C5900D8E01E /* CryptoPaper.app */,
 				D3DBA2072C25C04D00C32C7D /* CryptoPaperTests.xctest */,
+				B3D0367A2C2C931A00ACE5D0 /* ExtractViewUITests.xctest */,
+				B3D036892C2C933A00ACE5D0 /* CoinsListViewUITests.xctest */,
+				B3D036982C2C935400ACE5D0 /* CoinViewUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -300,6 +363,33 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		B3D0367B2C2C931A00ACE5D0 /* ExtractViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B3D0367C2C2C931A00ACE5D0 /* ExtractViewUITests.swift */,
+				B3D0367E2C2C931A00ACE5D0 /* ExtractViewUITestsLaunchTests.swift */,
+			);
+			path = ExtractViewUITests;
+			sourceTree = "<group>";
+		};
+		B3D0368A2C2C933A00ACE5D0 /* CoinsListViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B3D0368B2C2C933A00ACE5D0 /* CoinsListViewUITests.swift */,
+				B3D0368D2C2C933A00ACE5D0 /* CoinsListViewUITestsLaunchTests.swift */,
+			);
+			path = CoinsListViewUITests;
+			sourceTree = "<group>";
+		};
+		B3D036992C2C935400ACE5D0 /* CoinViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B3D0369A2C2C935400ACE5D0 /* CoinViewUITests.swift */,
+				B3D0369C2C2C935400ACE5D0 /* CoinViewUITestsLaunchTests.swift */,
+			);
+			path = CoinViewUITests;
+			sourceTree = "<group>";
+		};
 		D3DBA2082C25C04D00C32C7D /* CryptoPaperTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +417,60 @@
 			productName = CryptoPaper;
 			productReference = 288CA9632C249C5900D8E01E /* CryptoPaper.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B3D036792C2C931A00ACE5D0 /* ExtractViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D036842C2C931A00ACE5D0 /* Build configuration list for PBXNativeTarget "ExtractViewUITests" */;
+			buildPhases = (
+				B3D036762C2C931A00ACE5D0 /* Sources */,
+				B3D036772C2C931A00ACE5D0 /* Frameworks */,
+				B3D036782C2C931A00ACE5D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3D036812C2C931A00ACE5D0 /* PBXTargetDependency */,
+			);
+			name = ExtractViewUITests;
+			productName = ExtractViewUITests;
+			productReference = B3D0367A2C2C931A00ACE5D0 /* ExtractViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B3D036882C2C933A00ACE5D0 /* CoinsListViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D036912C2C933A00ACE5D0 /* Build configuration list for PBXNativeTarget "CoinsListViewUITests" */;
+			buildPhases = (
+				B3D036852C2C933A00ACE5D0 /* Sources */,
+				B3D036862C2C933A00ACE5D0 /* Frameworks */,
+				B3D036872C2C933A00ACE5D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3D036902C2C933A00ACE5D0 /* PBXTargetDependency */,
+			);
+			name = CoinsListViewUITests;
+			productName = CoinsListViewUITests;
+			productReference = B3D036892C2C933A00ACE5D0 /* CoinsListViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B3D036972C2C935400ACE5D0 /* CoinViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D036A02C2C935400ACE5D0 /* Build configuration list for PBXNativeTarget "CoinViewUITests" */;
+			buildPhases = (
+				B3D036942C2C935400ACE5D0 /* Sources */,
+				B3D036952C2C935400ACE5D0 /* Frameworks */,
+				B3D036962C2C935400ACE5D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3D0369F2C2C935400ACE5D0 /* PBXTargetDependency */,
+			);
+			name = CoinViewUITests;
+			productName = CoinViewUITests;
+			productReference = B3D036982C2C935400ACE5D0 /* CoinViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		D3DBA2062C25C04D00C32C7D /* CryptoPaperTests */ = {
 			isa = PBXNativeTarget;
@@ -359,6 +503,18 @@
 					288CA9622C249C5900D8E01E = {
 						CreatedOnToolsVersion = 15.4;
 					};
+					B3D036792C2C931A00ACE5D0 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 288CA9622C249C5900D8E01E;
+					};
+					B3D036882C2C933A00ACE5D0 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 288CA9622C249C5900D8E01E;
+					};
+					B3D036972C2C935400ACE5D0 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 288CA9622C249C5900D8E01E;
+					};
 					D3DBA2062C25C04D00C32C7D = {
 						CreatedOnToolsVersion = 15.4;
 						LastSwiftMigration = 1540;
@@ -381,6 +537,9 @@
 			targets = (
 				288CA9622C249C5900D8E01E /* CryptoPaper */,
 				D3DBA2062C25C04D00C32C7D /* CryptoPaperTests */,
+				B3D036792C2C931A00ACE5D0 /* ExtractViewUITests */,
+				B3D036882C2C933A00ACE5D0 /* CoinsListViewUITests */,
+				B3D036972C2C935400ACE5D0 /* CoinViewUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -392,6 +551,27 @@
 			files = (
 				288CA9702C249C5B00D8E01E /* Assets.xcassets in Resources */,
 				288CA9732C249C5B00D8E01E /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036782C2C931A00ACE5D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036872C2C933A00ACE5D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036962C2C935400ACE5D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +613,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B3D036762C2C931A00ACE5D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D0367D2C2C931A00ACE5D0 /* ExtractViewUITests.swift in Sources */,
+				B3D0367F2C2C931A00ACE5D0 /* ExtractViewUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036852C2C933A00ACE5D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D0368E2C2C933A00ACE5D0 /* CoinsListViewUITestsLaunchTests.swift in Sources */,
+				B3D0368C2C2C933A00ACE5D0 /* CoinsListViewUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D036942C2C935400ACE5D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D0369D2C2C935400ACE5D0 /* CoinViewUITestsLaunchTests.swift in Sources */,
+				B3D0369B2C2C935400ACE5D0 /* CoinViewUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3DBA2032C25C04D00C32C7D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,6 +651,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B3D036812C2C931A00ACE5D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 288CA9622C249C5900D8E01E /* CryptoPaper */;
+			targetProxy = B3D036802C2C931A00ACE5D0 /* PBXContainerItemProxy */;
+		};
+		B3D036902C2C933A00ACE5D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 288CA9622C249C5900D8E01E /* CryptoPaper */;
+			targetProxy = B3D0368F2C2C933A00ACE5D0 /* PBXContainerItemProxy */;
+		};
+		B3D0369F2C2C935400ACE5D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 288CA9622C249C5900D8E01E /* CryptoPaper */;
+			targetProxy = B3D0369E2C2C935400ACE5D0 /* PBXContainerItemProxy */;
+		};
 		D3DBA20C2C25C04D00C32C7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 288CA9622C249C5900D8E01E /* CryptoPaper */;
@@ -636,6 +858,108 @@
 			};
 			name = Release;
 		};
+		B3D036822C2C931A00ACE5D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.ExtractViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Debug;
+		};
+		B3D036832C2C931A00ACE5D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.ExtractViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Release;
+		};
+		B3D036922C2C933A00ACE5D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.CoinsListViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Debug;
+		};
+		B3D036932C2C933A00ACE5D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.CoinsListViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Release;
+		};
+		B3D036A12C2C935400ACE5D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.CoinViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Debug;
+		};
+		B3D036A22C2C935400ACE5D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KV78S9S54R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jairo.CoinViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CryptoPaper;
+			};
+			name = Release;
+		};
 		D3DBA20E2C25C04D00C32C7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -692,6 +1016,33 @@
 			buildConfigurations = (
 				288CA9782C249C5B00D8E01E /* Debug */,
 				288CA9792C249C5B00D8E01E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D036842C2C931A00ACE5D0 /* Build configuration list for PBXNativeTarget "ExtractViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D036822C2C931A00ACE5D0 /* Debug */,
+				B3D036832C2C931A00ACE5D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D036912C2C933A00ACE5D0 /* Build configuration list for PBXNativeTarget "CoinsListViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D036922C2C933A00ACE5D0 /* Debug */,
+				B3D036932C2C933A00ACE5D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D036A02C2C935400ACE5D0 /* Build configuration list for PBXNativeTarget "CoinViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D036A12C2C935400ACE5D0 /* Debug */,
+				B3D036A22C2C935400ACE5D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
