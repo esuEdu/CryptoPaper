@@ -7,17 +7,25 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 class CoinsViewModel {
     @Published var coins: [CoinWrapper] = []
     @Published var totalBalance: Double = 0.0
     
+    private var container: ModelContainer
+    
     private var cancellables = Set<AnyCancellable>()
     private let serviceManager: ServiceManager
     
-    init(serviceManager: ServiceManager = ServiceManager()) {
+    init(serviceManager: ServiceManager = ServiceManager(), container: ModelContainer = DataController.shared.container) {
         self.serviceManager = serviceManager
+        self.container = container
         fetchCoins()
+    }
+    
+    func getBalance() {
+        
     }
     
     private func fetchCoins() {
