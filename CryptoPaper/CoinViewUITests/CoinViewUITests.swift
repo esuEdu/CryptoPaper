@@ -2,7 +2,7 @@
 //  CoinViewUITests.swift
 //  CoinViewUITests
 //
-//  Created by Jairo Júnior on 26/06/24.
+//  Created by Victor Hugo Pacheco Araujo on 26/06/24.
 //
 
 import XCTest
@@ -27,6 +27,16 @@ final class CoinViewUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
+        
+        let textField = app.textFields["textFieldCoinThatHave"]
+        
+        // When
+        textField.tap()
+        
+                                let amount = app.keys["23.4"]
+        
+                        amount.tap()
+                
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 

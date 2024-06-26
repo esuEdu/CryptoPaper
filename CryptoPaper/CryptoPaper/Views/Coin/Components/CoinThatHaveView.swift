@@ -7,7 +7,8 @@
 
 import UIKit
 
-class CoinThatHaveView: UIView {
+class CoinThatHaveView: UIView, TextFieldComponentDelegate {
+   
     weak var coinViewModel: CoinViewModel?
     
     private let coinSymbol: UIImageView = {
@@ -41,6 +42,7 @@ class CoinThatHaveView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = UIColor(.primary)
         textField.textFieldToGetTheName.borderStyle = .roundedRect
+        textField.accessibilityIdentifier = "textFieldCoinThatHave"
         return textField
     }()
     
@@ -90,6 +92,7 @@ class CoinThatHaveView: UIView {
         qtdTextField.textFieldToGetTheName.keyboardAppearance = .default
         qtdTextField.textFieldToGetTheName.keyboardType = .decimalPad
         
+        qtdTextField.delegate = self
     }
     
     func createMenuButton() -> UIMenu {
@@ -128,5 +131,42 @@ class CoinThatHaveView: UIView {
             qtdTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
         ])
     }
+    
+    func textFieldDidBeginEditing() {
+    }
+    
+    func textFieldDidEndEditing() {
+    }
+    
+    func textFieldDidChangeSelection() {
+        // Verifique se a string da text field contém uma vírgula
+        if let text = qtdTextField.textFieldToGetTheName.text {
+            if text.contains(",") {
+                // Lide com o caso onde a string contém uma vírgula, se necessário
+                print("A string contém uma vírgula")
+                // Você pode substituir a vírgula por ponto, se for o caso
+                let textWithDot = text.replacingOccurrences(of: ",", with: ".")
+                if let doubleValue = Double(textWithDot) {
+                    coinViewModel?.coinTextField = doubleValue
+                } else {
+                    // Lide com o caso onde a conversão falha, se necessário
+                    coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+                }
+            } else {
+                // Tente converter a string para Double diretamente
+                if let doubleValue = Double(text) {
+                    coinViewModel?.coinTextField = doubleValue
+                } else {
+                    // Lide com o caso onde a conversão falha, se necessário
+                    coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+                }
+            }
+        } else {
+            // Lide com o caso onde a string é nula, se necessário
+            coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+        }
+
+    }
+
     
 }
