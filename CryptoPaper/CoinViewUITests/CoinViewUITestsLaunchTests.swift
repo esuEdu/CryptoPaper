@@ -2,7 +2,7 @@
 //  CoinViewUITestsLaunchTests.swift
 //  CoinViewUITests
 //
-//  Created by Jairo Júnior on 26/06/24.
+//  Created by Victor Hugo Pacheco Araujo on 26/06/24.
 //
 
 import XCTest

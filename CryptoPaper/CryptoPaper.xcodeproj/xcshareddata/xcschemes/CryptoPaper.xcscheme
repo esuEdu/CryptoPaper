@@ -41,6 +41,39 @@
                ReferencedContainer = "container:CryptoPaper.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9BA181C52C2CAE4D00327A17"
+               BuildableName = "CoinViewUITests.xctest"
+               BlueprintName = "CoinViewUITests"
+               ReferencedContainer = "container:CryptoPaper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B3D036792C2C931A00ACE5D0"
+               BuildableName = "ExtractViewUITests.xctest"
+               BlueprintName = "ExtractViewUITests"
+               ReferencedContainer = "container:CryptoPaper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B3D036882C2C933A00ACE5D0"
+               BuildableName = "CoinsListViewUITests.xctest"
+               BlueprintName = "CoinsListViewUITests"
+               ReferencedContainer = "container:CryptoPaper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
