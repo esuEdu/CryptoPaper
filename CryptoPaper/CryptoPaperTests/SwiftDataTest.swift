@@ -12,11 +12,12 @@ final class SwiftDataTest: XCTestCase {
     
     var dataController: DataController!
     
-    override func setUp() async throws {
-        try await super.setUp()
+    @MainActor
+    override func setUp() {
+        super.setUp()
         
         // Initialize the DataController with a mock container if needed
-        dataController = await DataController(container: .testContainer)
+        dataController = DataController(container: .testContainer)
     }
     
     override func tearDown() {
