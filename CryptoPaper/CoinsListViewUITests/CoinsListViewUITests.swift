@@ -36,12 +36,3 @@ final class CoinsListViewUITests: XCTestCase {
     }
 
 }
-
-
-extension XCUIElement {
-    func scrollToElement(element: XCUIElement) {
-        while !element.exists {
-            swipeUp()
-        }
-    }
-}
