@@ -38,10 +38,6 @@ class CoinView: UIViewController {
         view.addSubview(coinThatWant)
         
         view.addSubview(buyButton)
-    
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-//        tapGesture.cancelsTouchesInView = false
-//        view.addGestureRecognizer(tapGesture)
 
         #warning("tirar o magic number 70")
         NSLayoutConstraint.activate([
@@ -56,7 +52,7 @@ class CoinView: UIViewController {
             coinThatWant.heightAnchor.constraint(equalToConstant: 30),
             
             buyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            buyButton.topAnchor.constraint(equalTo: coinThatWant.bottomAnchor, constant: 100),
             buyButton.widthAnchor.constraint(equalToConstant: 300),
             buyButton.heightAnchor.constraint(equalToConstant: 50),
         ])

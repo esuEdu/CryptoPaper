@@ -91,6 +91,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         qtdTextField.textFieldToGetTheName.autocorrectionType = .no
         qtdTextField.textFieldToGetTheName.keyboardAppearance = .default
         qtdTextField.textFieldToGetTheName.keyboardType = .decimalPad
+        qtdTextField.becomeFirstResponder()
         
         qtdTextField.delegate = self
     }
@@ -132,11 +133,9 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         ])
     }
     
-    func textFieldDidBeginEditing() {
-    }
+    func textFieldDidBeginEditing() {}
     
-    func textFieldDidEndEditing() {
-    }
+    func textFieldDidEndEditing() {}
     
     func textFieldDidChangeSelection() {
         // Verifique se a string da text field contém uma vírgula
@@ -165,8 +164,6 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
             // Lide com o caso onde a string é nula, se necessário
             coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
         }
-
     }
 
-    
 }
