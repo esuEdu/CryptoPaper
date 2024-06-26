@@ -27,7 +27,7 @@ class ServiceManager {
             .map { CoinWrapper(symbol: String($0.symbol.dropLast(4)), price: $0.price) }
     }
     
-    func fetchCoins(completion: @escaping (Result<[CoinWrapper], Error>) -> Void) {
+    func fetchCoins(completion: @escaping (Result<[CoinWrapper], Error>) -> Void, filter: String = "USDT") {
         // Configurando a URL
         let urlString = "https://api.binance.com/api/v3/ticker/price"
         guard let url = URL(string: urlString) else {
@@ -54,7 +54,7 @@ class ServiceManager {
                 var coins = try JSONDecoder().decode([CoinWrapper].self, from: data)
                 
                 // Filtrando
-                coins = self.filterCoins(coins: coins)
+                coins = self.filterCoins(coins: coins, filter: filter)
                 
                 // Printando as moedas para garantir
                 for coin in coins {
