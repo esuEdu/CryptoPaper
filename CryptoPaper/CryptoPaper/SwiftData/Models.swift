@@ -12,10 +12,6 @@ import SwiftData
 struct CoinWrapper: Codable {
      var symbol: String
      var price: String
-    
-    mutating func filter() {
-        
-    }
 }
 
 @Model
@@ -32,9 +28,10 @@ class Coin {
 @Model
 class User {
     @Relationship var coins: [Coin]
-    
-    init(coins: [Coin]) {
+    @Relationship var transactions: [Transactions]?
+    init(coins: [Coin], transactions: [Transactions]? = nil) {
         self.coins = coins
+        self.transactions = transactions
     }
 }
 
@@ -51,5 +48,4 @@ class Transactions {
         self.coinBought = coinBought
         self.coinSold = coinSold
     }
-    
 }

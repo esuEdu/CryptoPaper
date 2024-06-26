@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftData
 
 final class MainCoordinator: Coordinator {
         
