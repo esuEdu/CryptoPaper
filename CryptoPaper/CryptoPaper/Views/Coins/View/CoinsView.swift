@@ -4,7 +4,6 @@
 //
 //  Created by Eduardo on 20/06/24.
 //
-
 import UIKit
 import Combine
 
@@ -33,12 +32,13 @@ class CoinsListView: UIViewController {
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceLabel.textAlignment = .center
         balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        balanceLabel.accessibilityIdentifier = "Balance" // Add this line
+        balanceLabel.accessibilityIdentifier = "Balance"
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CoinCell")
         tableView.dataSource = self
-        tableView.accessibilityIdentifier = "Coin Table" // Add this line
+        tableView.delegate = self
+        tableView.accessibilityIdentifier = "Coin Table"
         
         view.addSubview(balanceLabel)
         view.addSubview(tableView)
@@ -82,5 +82,12 @@ extension CoinsListView: UITableViewDataSource {
         let coin = viewModel.coins[indexPath.row]
         cell.textLabel?.text = "\(coin.symbol): $\(coin.price)"
         return cell
+    }
+}
+
+extension CoinsListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let coin = viewModel.coins[indexPath.row]
+        coordinator?.goToCoinView(coin: Coin(name: coin.symbol, amount: Double(coin.price) ?? 0))
     }
 }

@@ -77,7 +77,7 @@ class CoinThatWant: UIView {
             qtdHave.text = "Valor não disponível"
         }
         
-        coinLabel.text = coinViewModel?.coinToBuy
+        coinLabel.text = coinViewModel?.coinToBuy.name
         
     }
 
