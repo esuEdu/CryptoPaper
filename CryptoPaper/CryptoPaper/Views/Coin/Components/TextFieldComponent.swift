@@ -11,6 +11,7 @@ import UIKit
 protocol TextFieldComponentDelegate: AnyObject {
     func textFieldDidEndEditing()
     func textFieldDidBeginEditing()
+    func textFieldDidChangeSelection()
 }
 
 class TextFieldComponent: UIView {
@@ -61,7 +62,7 @@ class TextFieldComponent: UIView {
 
 extension TextFieldComponent: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxCharactor = 30
+        let maxCharactor = 16
         
         let currentString :NSString = (textField.text ?? "") as NSString
         
@@ -70,9 +71,17 @@ extension TextFieldComponent: UITextFieldDelegate {
         return newString.length <= maxCharactor
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        delegate?.textFieldDidChangeSelection()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

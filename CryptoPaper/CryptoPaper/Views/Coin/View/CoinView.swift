@@ -10,7 +10,9 @@ import UIKit
 
 class CoinView: UIViewController {
     
-    weak var coinViewModel: CoinViewModel?
+    weak var coordinator: MainCoordinator?
+    
+    private let coinViewModel = CoinViewModel()
     
     private let buyButton: UIButton = {
         let button = UIButton()
@@ -20,15 +22,6 @@ class CoinView: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    init(coinViewModel: CoinViewModel? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.coinViewModel = coinViewModel
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
