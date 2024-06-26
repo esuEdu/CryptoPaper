@@ -42,6 +42,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = UIColor(.primary)
         textField.textFieldToGetTheName.borderStyle = .roundedRect
+        textField.accessibilityIdentifier = "textFieldCoinThatHave"
         return textField
     }()
     

@@ -22,8 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
         coordinator = MainCoordinator(navigationController: navigationController)
-//        coordinator?.start()
-        coordinator?.goToExtractView()
+        coordinator?.start()
         
         window = UIWindow(frame: .zero)
         window?.makeKeyAndVisible()
