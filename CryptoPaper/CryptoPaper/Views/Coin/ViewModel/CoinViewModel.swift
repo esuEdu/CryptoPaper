@@ -14,7 +14,7 @@ class CoinViewModel {
     @Published var totalBalance: Double = 0.0
     
     private var cancellables = Set<AnyCancellable>()
-    private let serviceManager: ServiceManager
+    private var serviceManager: ServiceManager
 
     var symbolCoinHave: UIImage = UIImage(systemName: "square.and.arrow.up")!
     var symbolCoinWant: UIImage = UIImage(systemName: "pencil")!
@@ -22,27 +22,15 @@ class CoinViewModel {
     var qtdHave: Double = 0
     var qtdHaveInDollar: Double = 0
     var coinsMenuButton: [String] = ["ETH", "BTC"] // coins that user have in the database
-    var coinToBuy: String = "ETH"
+    var coinToBuy: Coin
     
     @Published var coinTextField: Double = 0
     @Published var balanceCoinWant: Double = 0
     
-//    init(symbolCoinHave: UIImage = UIImage(systemName: "square.and.arrow.up")!, symbolCoinWant: UIImage = UIImage(systemName: "pencil")!, qtdHave: Double = 0, coinsMenu: [String] = ["ETH", "BTC"], coinsToBuy: String = "ETH") {
-//        self.symbolCoinHave = symbolCoinHave
-//        self.symbolCoinWant = symbolCoinWant
-//        self.qtdHave = qtdHave
-//        self.coinsMenuButton = coinsMenu
-//        self.coinToBuy = coinsToBuy
-//    }
-    
-    
-    init(serviceManager: ServiceManager = ServiceManager()) {
+    init(serviceManager: ServiceManager = ServiceManager(), coinsToBuy: Coin) {
         self.serviceManager = serviceManager
-        fetchCoins()
+        self.coinToBuy = coinsToBuy
     }
-    
-    // when the use create a transaction it pass to get that coin
-    
     
     func calculateBalanceCoinWant() {
         

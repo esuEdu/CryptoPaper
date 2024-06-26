@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SwiftData
 
 final class MainCoordinator: Coordinator {
         
@@ -18,14 +17,17 @@ final class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let view = CoinView()
+        let view = CoinsListView()
         view.coordinator = self
         
         navigationController.pushViewController(view, animated: true)
     }
     
-    func goToCoinView() {
+    func goToCoinView(coin: Coin) {
+        let viewModel = CoinViewModel(coinsToBuy: coin)
         let view = CoinView()
+        
+        view.coinViewModel = viewModel
         view.coordinator = self
         
         navigationController.present(view, animated: true)

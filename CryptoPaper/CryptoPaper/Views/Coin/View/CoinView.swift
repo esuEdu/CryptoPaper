@@ -12,7 +12,7 @@ class CoinView: UIViewController {
     
     weak var coordinator: MainCoordinator?
     
-    private let coinViewModel = CoinViewModel()
+    weak var coinViewModel: CoinViewModel?
     
     private let buyButton: UIButton = {
         let button = UIButton()
