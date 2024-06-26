@@ -8,26 +8,26 @@
 import UIKit
 import Combine
 
-//struct Transaction{
-//    var id: UUID
-//    var date: Date
-//    var coinBought: Coin
-//    var coinSold: Coin
-//    var qtdBought: Double
-//    var valuePaid: Double
-//    var qtdSold: Double
-//    var valueSold: Double
-//}
+struct Transaction{
+    var id: UUID
+    var date: Date
+    var coinBought: Coins
+    var coinSold: Coins
+}
+struct Coins{
+    var name: String
+    var amount: Double
+}
 
 class ExtractView: UIViewController {
-    private var extractsTest: [Transactions] = [Transactions(id: UUID(), date: .now, coinBought: Coin(name: "BTC", amount: 123), coinSold: Coin(name: "ETH", amount: 123))]
+    private var extractsTest: [Transaction] = [Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "BTC", amount: 3426), coinSold: Coins(name: "ETH", amount: 5)), Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "ETH", amount: 345), coinSold: Coins(name: "BTC", amount: 435))]
     
     weak var coordinator: MainCoordinator?
     private var viewModel = ExtractViewModel()
     private var cancellables = Set<AnyCancellable>()
     private let balanceLabel = UILabel()
 
-    private let tableView: UITableView = {
+    private let ExtractViewTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.allowsSelection = false
@@ -47,30 +47,30 @@ class ExtractView: UIViewController {
         self.title = "Extract"
         
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        ExtractViewTableView.translatesAutoresizingMaskIntoConstraints = false
         
         balanceLabel.accessibilityIdentifier = "Balance" // Add this line
-        tableView.accessibilityIdentifier = "Extract Table" // Add this line
+        ExtractViewTableView.accessibilityIdentifier = "Extract Table" // Add this line
         
         balanceLabel.textAlignment = .center
         balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
         
     
-        tableView.dataSource = self
-        tableView.delegate = self
+        ExtractViewTableView.dataSource = self
+        ExtractViewTableView.delegate = self
         
         view.addSubview(balanceLabel)
-        view.addSubview(tableView)
+        view.addSubview(ExtractViewTableView)
         
         NSLayoutConstraint.activate([
             balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
+            balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ExtractViewTableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
+            ExtractViewTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            ExtractViewTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ExtractViewTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -101,12 +101,10 @@ extension ExtractView: UITableViewDataSource, UITableViewDelegate{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as? CustomCell else{
             fatalError("The tableView could not dequeue a CustomCell in ExtractView")
         }
-//        cell.textLabel?.text = indexPath.row.description
         
         let image = UIImage(systemName: "bitcoinsign.circle")!
-//        cell.config(with: image, and: "Ticker\(indexPath.row.description)")
-//        cell.config(with: image, tickerLabel: "Ticker: \(extractsTest[indexPath.row].coinBought.symbol)", coinName: "Name: Nope", paidValue: "Paid: \(extractsTest[indexPath.row].valuePaid)", quantityPurchased: "QTD : \(extractsTest[indexPath.row].qtdBought)", price: "Price: $\(extractsTest[indexPath.row].coinBought.price)")
-        cell.config(with: image, tickerLabel: "Ticker: \(extractsTest[indexPath.row].coinBought.name)", coinName: "Name: NaN", paidValue: "Paid: \(extractsTest[indexPath.row].coinSold.amount)", quantityPurchased: "Purchased: \(extractsTest[indexPath.row].coinBought.amount)", price: "Price: \(extractsTest[indexPath.row].coinBought.amount)")
+
+        cell.config(with: image, tickerLabel: "\(extractsTest[indexPath.row].coinBought.name)", paidValue: extractsTest[indexPath.row].coinSold.amount, quantityPurchased: extractsTest[indexPath.row].coinBought.amount)
         
         return cell
     }

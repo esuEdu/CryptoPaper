@@ -22,15 +22,6 @@ class CustomCell: UITableViewCell {
         return label
     }()
     
-    private let coinNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .label
-        label.textAlignment = .left
-        label.text = "Coin Name"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private let paidLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -49,15 +40,6 @@ class CustomCell: UITableViewCell {
         return label
     }()
     
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .label
-        label.textAlignment = .left
-        label.text = "Price when purchased"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupUI()
@@ -69,7 +51,7 @@ class CustomCell: UITableViewCell {
     
     private func setupUI() {
         // Vertical stack for the left side labels
-        let leftStackView = UIStackView(arrangedSubviews: [coinTickerLabel, coinNameLabel, paidLabel])
+        let leftStackView = UIStackView(arrangedSubviews: [coinTickerLabel, paidLabel])
         leftStackView.axis = .vertical
         leftStackView.alignment = .leading
         leftStackView.distribution = .fillProportionally
@@ -77,9 +59,9 @@ class CustomCell: UITableViewCell {
         leftStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Vertical stack for the right side labels
-        let rightStackView = UIStackView(arrangedSubviews: [qtdPurchasedLabel, priceLabel])
+        let rightStackView = UIStackView(arrangedSubviews: [qtdPurchasedLabel])
         rightStackView.axis = .vertical
-        rightStackView.alignment = .leading
+        rightStackView.alignment = .trailing
         rightStackView.distribution = .fillProportionally
         rightStackView.spacing = 4
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -106,25 +88,19 @@ class CustomCell: UITableViewCell {
         
         // Setting compression resistance and hugging priority to make sure labels resize correctly
         coinTickerLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        coinNameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         paidLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         qtdPurchasedLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        priceLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         coinTickerLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        coinNameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         paidLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         qtdPurchasedLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        priceLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
     }
     
-    public func config(with image: UIImage, tickerLabel: String, coinName: String, paidValue: String, quantityPurchased: String, price: String) {
+    public func config(with image: UIImage, tickerLabel: String, paidValue: Double, quantityPurchased: Double) {
         self.coinImage.image = image
         self.coinTickerLabel.text = tickerLabel
-        self.coinNameLabel.text = coinName
-        self.paidLabel.text = paidValue
-        self.qtdPurchasedLabel.text = quantityPurchased
-        self.priceLabel.text = price
+        self.paidLabel.text = String(format: "Paid: $%.2f", paidValue)
+        self.qtdPurchasedLabel.text = String(format: "Qtd: %.2f", quantityPurchased)
     }
 }
