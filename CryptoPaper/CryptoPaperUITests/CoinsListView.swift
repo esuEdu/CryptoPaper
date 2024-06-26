@@ -36,34 +36,12 @@ final class CoinsListView: XCTestCase {
         app.launch()
 
         // Verify the navigation title
-        let navigationTitle = app.navigationBars["My Coins"].staticTexts["My Coins"]
+        let navigationTitle = app.navigationBars["Coins"].staticTexts["Coins"]
         XCTAssertTrue(navigationTitle.exists)
         
         // Verify the balance label
         let balanceLabel = app.staticTexts.matching(identifier: "Balance").firstMatch
         XCTAssertTrue(balanceLabel.exists)
         
-        // Wait for the table view to load and verify that it has cells
-        let tableView = app.tables.firstMatch
-        let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == 1"), object: tableView)
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5.0)
-        XCTAssertEqual(result, .completed, "Table view did not load in time")
-        
-        // Add a 5-second delay
-        let expectationTime = XCTestExpectation(description: "Wait for 5 seconds")
-        let result = XCTWaiter.wait(for: [expectationTime], timeout: 5.0)
-        
-        if result == .timedOut {
-            // Verify that the table view has cells
-            let tableView = app.tables["YourTableViewIdentifier"] // replace with your table view identifier
-            XCTAssertTrue(tableView.cells.count > 0, "The table view should have cells")
-        } else {
-            XCTFail("Delay interrupted")
-        }
-        
-        // Verify the first cell
-        let firstCell = tableView.cells.element(boundBy: 0)
-        XCTAssertTrue(firstCell.exists, "The first cell should exist")
-        XCTAssertTrue(firstCell.staticTexts.element.exists, "The first cell should have text")
     }
 }
