@@ -20,7 +20,9 @@ struct Coins{
 }
 
 class ExtractView: UIViewController {
-    private var extractsTest: [Transaction] = [Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "BTC", amount: 3426), coinSold: Coins(name: "ETH", amount: 5)), Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "ETH", amount: 345), coinSold: Coins(name: "BTC", amount: 435))]
+
+    private var extractsTest: [Transactions] = []
+    private var dataController = DataController()
     
     weak var coordinator: MainCoordinator?
     private var viewModel = ExtractViewModel()
@@ -40,6 +42,9 @@ class ExtractView: UIViewController {
         
         setupUI()
         bindViewModel()
+        guard let data = dataController.fetchUsers().transactions else { return }
+        self.extractsTest = data
+        
     }
     
     private func setupUI() {
@@ -81,13 +86,6 @@ class ExtractView: UIViewController {
                 self?.balanceLabel.text = String(format: "$%.2f", totalBalance)
             }
             .store(in: &cancellables)
-        
-//        viewModel.$coins
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] _ in
-//                self?.tableView.reloadData()
-//            }
-//            .store(in: &cancellables)
     }
 }
 
