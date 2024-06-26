@@ -8,5 +8,5 @@
 import Foundation
 
 class ExtractModel{
-    @Published var totalBalance: Double = 0.0
+    @Published var totalBalance: Double = 0
 }
