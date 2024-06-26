@@ -1,41 +1,69 @@
-//
-//  ExtractViewUITests.swift
-//  ExtractViewUITests
-//
-//  Created by Jairo Júnior on 26/06/24.
-//
-
 import XCTest
 
 final class ExtractViewUITests: XCTestCase {
-
+    var app: XCUIApplication!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+        try super.setUpWithError()
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+        app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    override func tearDownWithError() throws {
+        app = nil
+        try super.tearDownWithError()
+    }
+    
+    func testBalanceLabelExists() throws {
+        // Verifica se o balanceLabel existe
+        let balanceLabel = app.staticTexts["Balance"]
+        XCTAssertTrue(balanceLabel.exists, "The balance label should exist")
+    }
+    
+    func testTableViewExists() throws {
+        // Verifica se a tableView existe
+        let tableView = app.tables["Extract Table"]
+        XCTAssertTrue(tableView.exists, "The table view should exist")
+    }
+    
+    func testTableViewCells() throws {
+        let tableView = app.tables["Extract Table"]
+        
+        // Aguarda a tableView estar presente
+        let exists = NSPredicate(format: "exists == true")
+        expectation(for: exists, evaluatedWith: tableView, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        // Verifica se há células na tableView
+        XCTAssertTrue(tableView.cells.count > 0, "There should be cells in the table view")
+        
+        // Verifica o conteúdo da primeira célula
+        let firstCell = tableView.cells.element(boundBy: 0)
+        XCTAssertTrue(firstCell.staticTexts["BTC"].exists, "The first cell should display 'BTC'")
+    }
+    
+    func testTableViewScroll() throws {
+        let tableView = app.tables["Extract Table"]
+        
+        // Aguarda a tableView estar presente
+        let exists = NSPredicate(format: "exists == true")
+        expectation(for: exists, evaluatedWith: tableView, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        // Faz scroll até a última célula
+        let lastCell = tableView.cells.element(boundBy: tableView.cells.count - 1)
+        tableView.scrollToElement(element: lastCell)
+        
+        // Verifica se a última célula está visível
+        XCTAssertTrue(lastCell.isHittable, "The last cell should be visible after scrolling")
+    }
+}
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+extension XCUIElement {
+    func scrollToElement(element: XCUIElement) {
+        while !element.exists {
+            swipeUp()
         }
     }
 }

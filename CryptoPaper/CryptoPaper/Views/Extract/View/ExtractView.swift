@@ -27,7 +27,7 @@ class ExtractView: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let balanceLabel = UILabel()
 
-    private let tableView: UITableView = {
+    private let ExtractViewTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.allowsSelection = false
@@ -47,30 +47,30 @@ class ExtractView: UIViewController {
         self.title = "Extract"
         
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        ExtractViewTableView.translatesAutoresizingMaskIntoConstraints = false
         
         balanceLabel.accessibilityIdentifier = "Balance" // Add this line
-        tableView.accessibilityIdentifier = "Extract Table" // Add this line
+        ExtractViewTableView.accessibilityIdentifier = "Extract Table" // Add this line
         
         balanceLabel.textAlignment = .center
         balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
         
     
-        tableView.dataSource = self
-        tableView.delegate = self
+        ExtractViewTableView.dataSource = self
+        ExtractViewTableView.delegate = self
         
         view.addSubview(balanceLabel)
-        view.addSubview(tableView)
+        view.addSubview(ExtractViewTableView)
         
         NSLayoutConstraint.activate([
             balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ExtractViewTableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
+            ExtractViewTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            ExtractViewTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ExtractViewTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
