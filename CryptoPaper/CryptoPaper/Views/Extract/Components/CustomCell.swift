@@ -40,6 +40,15 @@ class CustomCell: UITableViewCell {
         return label
     }()
     
+    private let priceLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.textAlignment = .left
+        label.text = "Price when purchased"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupUI()
@@ -59,7 +68,7 @@ class CustomCell: UITableViewCell {
         leftStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Vertical stack for the right side labels
-        let rightStackView = UIStackView(arrangedSubviews: [qtdPurchasedLabel])
+        let rightStackView = UIStackView(arrangedSubviews: [qtdPurchasedLabel, priceLabel])
         rightStackView.axis = .vertical
         rightStackView.alignment = .trailing
         rightStackView.distribution = .fillProportionally
@@ -90,10 +99,13 @@ class CustomCell: UITableViewCell {
         coinTickerLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         paidLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         qtdPurchasedLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        priceLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
         
         coinTickerLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         paidLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         qtdPurchasedLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        priceLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
     }
     
@@ -102,5 +114,6 @@ class CustomCell: UITableViewCell {
         self.coinTickerLabel.text = tickerLabel
         self.paidLabel.text = String(format: "Paid: $%.2f", paidValue)
         self.qtdPurchasedLabel.text = String(format: "Qtd: %.2f", quantityPurchased)
+        self.priceLabel.text = String(format: "Cotação: %.2f", (quantityPurchased/paidValue))
     }
 }
