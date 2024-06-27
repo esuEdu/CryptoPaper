@@ -18,7 +18,7 @@ class CoinViewModel {
 
     var symbolCoinHave: UIImage = UIImage(systemName: "square.and.arrow.up")!
     var symbolCoinWant: UIImage = UIImage(systemName: "pencil")!
-    
+     
     var qtdHave: Double = 0
     var qtdHaveInDollar: Double = 0
     var coinsMenuButton: [String] = ["ETH", "BTC"] // coins that user have in the database

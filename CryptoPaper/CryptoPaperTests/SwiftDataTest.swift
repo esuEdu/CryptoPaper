@@ -29,7 +29,7 @@ final class SwiftDataTest: XCTestCase {
     @MainActor
     func testFetchUsers() {
         // Ensure mockData is called and data is fetched correctly
-        let user = dataController.fetchUsers()
+        let user = dataController.fetchUser()
         XCTAssertNotNil(user, "User should not be nil")
         XCTAssertEqual(user.coins.first?.name, "usd", "First coin's name should be 'usd'")
         XCTAssertEqual(user.coins.first?.amount, 100000, "First coin's amount should be 100000")
@@ -42,7 +42,7 @@ final class SwiftDataTest: XCTestCase {
 
         dataController.addTransaction(coinBought: bought, coinSold: sold)
                 
-        let user = dataController.fetchUsers()
+        let user = dataController.fetchUser()
         let boughtCoin = user.coins.first { $0.name == "eth" }
         let soldCoin = user.coins.first { $0.name == "usd" }
         

@@ -13,19 +13,25 @@ class CoinsViewModel {
     @Published var coins: [CoinWrapper] = []
     @Published var totalBalance: Double = 0.0
     
-    private var container: ModelContainer
-    
     private var cancellables = Set<AnyCancellable>()
     private let serviceManager: ServiceManager
     
-    init(serviceManager: ServiceManager = ServiceManager(), container: ModelContainer = DataController.shared.container) {
+    var user: User?
+    
+    init(serviceManager: ServiceManager = ServiceManager()) {
         self.serviceManager = serviceManager
-        self.container = container
         fetchCoins()
+        getData()
     }
     
     func getBalance() {
         
+    }
+    
+    func getData() {
+        Task {
+            user = await DataController.shared.fetchUser()
+        }
     }
     
     private func fetchCoins() {
@@ -40,5 +46,4 @@ class CoinsViewModel {
             }
         }
     }
-    
 }
