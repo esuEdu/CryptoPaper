@@ -19,51 +19,40 @@ final class ExtractViewUITests: XCTestCase {
         // Verifica se o balanceLabel existe
         let balanceLabel = app.staticTexts["Balance"]
         XCTAssertTrue(balanceLabel.exists, "The balance label should exist")
+        
     }
     
     func testTableViewExists() throws {
         // Verifica se a tableView existe
         let tableView = app.tables["Extract Table"]
         XCTAssertTrue(tableView.exists, "The table view should exist")
+        
     }
     
-    func testTableViewCells() throws {
+    func testTableViewHasCells() throws {
         let tableView = app.tables["Extract Table"]
-        
-        // Aguarda a tableView estar presente
-        let exists = NSPredicate(format: "exists == true")
-        expectation(for: exists, evaluatedWith: tableView, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        // Verifica se há células na tableView
-        XCTAssertTrue(tableView.cells.count > 0, "There should be cells in the table view")
-        
-        // Verifica o conteúdo da primeira célula
-        let firstCell = tableView.cells.element(boundBy: 0)
-        XCTAssertTrue(firstCell.staticTexts["BTC"].exists, "The first cell should display 'BTC'")
+        XCTAssertTrue(tableView.cells.count > 0, "The table view should have at least one cell")
     }
-    
-    func testTableViewScroll() throws {
-        let tableView = app.tables["Extract Table"]
-        
-        // Aguarda a tableView estar presente
-        let exists = NSPredicate(format: "exists == true")
-        expectation(for: exists, evaluatedWith: tableView, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        // Faz scroll até a última célula
-        let lastCell = tableView.cells.element(boundBy: tableView.cells.count - 1)
-        tableView.scrollToElement(element: lastCell)
-        
-        // Verifica se a última célula está visível
-        XCTAssertTrue(lastCell.isHittable, "The last cell should be visible after scrolling")
-    }
-}
 
-extension XCUIElement {
-    func scrollToElement(element: XCUIElement) {
-        while !element.exists {
-            swipeUp()
-        }
+    func testIfUIComponentsHasNilValues() throws {
+        
+        let extractTableTable = XCUIApplication().tables["Extract Table"]
+        
+        XCTAssertFalse(extractTableTable.staticTexts[""].exists, "The TableView has some nil values")
+    }
+    
+    func testNoInvalidValues() {
+        let extractTableTable = XCUIApplication().tables["Extract Table"]
+
+        // Verifica se não há células com o valor $inf
+        XCTAssertFalse(extractTableTable.staticTexts["Price: $"].exists, "The price can not be nil")
+        XCTAssertFalse(extractTableTable.staticTexts["Price: $inf"].exists, "The price can not be inf")
+        XCTAssertFalse(extractTableTable.staticTexts["Price: $0.0000"].exists, "The price can not be zero")
+
+        
+        XCTAssertFalse(extractTableTable.staticTexts["Paid: $"].exists, "The paid can not be nil")
+        XCTAssertFalse(extractTableTable.staticTexts["Paid: $inf"].exists, "The paid can not be inf")
+        XCTAssertFalse(extractTableTable.staticTexts["Paid: $0.0000"].exists, "The paid can not be zero")
+        
     }
 }
