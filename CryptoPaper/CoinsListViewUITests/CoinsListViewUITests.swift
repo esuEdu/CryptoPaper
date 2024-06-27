@@ -34,5 +34,26 @@ final class CoinsListViewUITests: XCTestCase {
         let tableView = app.tables["Coin Table"]
         XCTAssertTrue(tableView.exists, "The table view should exist")
     }
+    
+    func testTableViewHasCells() throws {
+        let tableView = app.tables["Coin Table"]
+        XCTAssertTrue(tableView.cells.count > 0, "The table view should have at least one cell")
+    }
+
+    func testIfUIComponentsHasNilValues() throws {
+        
+        let extractTableTable = XCUIApplication().tables["Coin Table"]
+        
+        XCTAssertFalse(extractTableTable.staticTexts[""].exists, "The TableView has some nil values")
+    }
+    
+    func testNoInvalidValues() {
+        let extractTableTable = XCUIApplication().tables["Coin Table"]
+
+        // Verifica se não há células com o valor $inf
+        XCTAssertFalse(extractTableTable.staticTexts["$0.000000000"].exists, "The price can not be nil")
+
+
+    }
 
 }
