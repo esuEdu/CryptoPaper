@@ -22,6 +22,7 @@ struct Coins{
 class ExtractView: UIViewController {
 
     private var extractsTest: [Transactions] = []
+//    private var extractsTest: [Transaction] = [Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "BTC", amount: 1), coinSold: Coins(name: "USDT", amount: 61000)), Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "ETH", amount: 345), coinSold: Coins(name: "USDT", amount: 10))]
     private var dataController = DataController()
     
     weak var coordinator: MainCoordinator?
@@ -100,9 +101,7 @@ extension ExtractView: UITableViewDataSource, UITableViewDelegate{
             fatalError("The tableView could not dequeue a CustomCell in ExtractView")
         }
         
-        let image = UIImage(systemName: "bitcoinsign.circle")!
-
-        cell.config(with: image, tickerLabel: "\(extractsTest[indexPath.row].coinBought.name)", paidValue: extractsTest[indexPath.row].coinSold.amount, quantityPurchased: extractsTest[indexPath.row].coinBought.amount)
+        cell.config(/*with: image,*/ tickerLabel: "\(extractsTest[indexPath.row].coinBought.name)", paidValue: extractsTest[indexPath.row].coinSold.amount, quantityPurchased: extractsTest[indexPath.row].coinBought.amount)
         
         return cell
     }
