@@ -31,7 +31,11 @@ class CoinView: UIViewController {
         let coinThatHaveView = CoinThatHaveView(coinViewModel: coinViewModel)
         coinThatHaveView.translatesAutoresizingMaskIntoConstraints = false
         
-        let coinThatWant = CoinThatWant(coinViewModel: coinViewModel)
+        guard let viewModel = coinViewModel else {
+            return
+        }
+        
+        let coinThatWant = CoinThatWant(coinViewModel: viewModel)
         coinThatWant.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(coinThatHaveView)

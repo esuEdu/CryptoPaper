@@ -158,9 +158,6 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
     
     func textFieldDidChangeSelection() {
         
-        if let viewModel = coinViewModel {
-            dump(viewModel)
-        }
         
         // Verifique se a string da text field contém uma vírgula
         if let text = qtdTextField.textFieldToGetTheName.text {
@@ -182,8 +179,6 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
                 if let doubleValue = Double(text) {
                     
                     coinViewModel?.coinTextField = doubleValue
-                    print(coinViewModel?.coinTextField)
-#warning("ver com o eduardo")
                 } else {
                     // Lide com o caso onde a conversão falha, se necessário
                     coinViewModel?.coinTextField = 45 // Valor padrão ou outra lógica

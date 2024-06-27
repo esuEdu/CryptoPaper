@@ -25,7 +25,11 @@ class CoinViewModel {
     @Published var coinsMenuButton: [String] = ["eth"] // coins that user have in the database
     var coinToBuy: Coin
     
-    @Published var coinTextField: Double = 0
+    @Published var coinTextField: Double = 0 {
+        didSet {
+            calculateBalanceCoinWant()
+        }
+    }
     @Published var balanceCoinWant: Double = 0
     @Published var qtdHaveInDollarOfCoinWant: Double = 0
     
@@ -43,7 +47,6 @@ class CoinViewModel {
             user = await DataController.shared.fetchUsers()
             await updateMenuButtonOptions()
             await updateQtdHaveOfTheCoin()
-            await calculateBalanceCoinWant()
         }
     }
     
@@ -63,9 +66,8 @@ class CoinViewModel {
         }
     }
     
-    private func calculateBalanceCoinWant() async {
+    private func calculateBalanceCoinWant()  {
         self.balanceCoinWant = coinTextField / coinToBuy.amount
-        
         calculateQtdInDollarOfCoinThatWant()
     }
     

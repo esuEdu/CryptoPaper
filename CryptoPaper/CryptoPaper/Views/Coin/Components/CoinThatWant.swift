@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 class CoinThatWant: UIView {
-    weak var coinViewModel: CoinViewModel?
+    var coinViewModel: CoinViewModel
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -47,11 +47,11 @@ class CoinThatWant: UIView {
         return balance
     }()
     
-    init(coinViewModel: CoinViewModel? = nil) {
-        
+    init(coinViewModel: CoinViewModel = CoinViewModel(coinsToBuy: Coin(name: "btc", amount: 60000))) {
+        self.coinViewModel = coinViewModel
+
         super.init(frame: .zero)
         
-        self.coinViewModel = coinViewModel
         
         addUI()
         bindViewModel()
@@ -69,9 +69,9 @@ class CoinThatWant: UIView {
         addSubview(coinLabel)
         addSubview(balanceCoin)
         
-        coinSymbol.image = coinViewModel?.symbolCoinWant
+        coinSymbol.image = coinViewModel.symbolCoinWant
         
-        coinLabel.text = coinViewModel?.coinToBuy.name
+        coinLabel.text = coinViewModel.coinToBuy.name
                 
     }
 
@@ -96,15 +96,15 @@ class CoinThatWant: UIView {
     }
     
     private func bindViewModel() {
-        coinViewModel?.$balanceCoinWant
+        coinViewModel.$balanceCoinWant
             .receive(on: RunLoop.main)
             .sink { [weak self] coinTextField in
-                self?.balanceCoin.text = "\(coinTextField)"
-//                print("\(coinTextField)")
+//                print(coinTextField)
+                self?.balanceCoin.text = String(format: "%.8f", coinTextField)
             }
             .store(in: &cancellables)
         
-        coinViewModel?.$qtdHaveInDollarOfCoinWant
+        coinViewModel.$qtdHaveInDollarOfCoinWant
             .receive(on: RunLoop.main)
             .sink { [weak self] qtdWant in
                 self?.quantInDollar.text = "\(qtdWant)"
