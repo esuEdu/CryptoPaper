@@ -4,7 +4,7 @@
 //
 //  Created by Victor Hugo Pacheco Araujo on 25/06/24.
 //
-
+ 
 import UIKit
 import Combine
 
@@ -91,22 +91,18 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
     }
     
     private func createMenuButton() -> UIMenu {
-        // Verifica se coinsMenuButton não é nil, caso contrário, usa um array vazio
+        guard let viewModel = coinViewModel else { fatalError("viewModel not found") }
         
-        let menuActions = (coinViewModel?.coinsMenuButton ?? []).map { coin in
-            UIAction(title: coin, handler: { (action) in
-                // Aqui você pode adicionar o comportamento desejado para cada moeda
+        let menuActions = viewModel.coinsMenuButton.map { coin in
+            UIAction(title: coin.uppercased(), handler: { [weak self] _ in
+                guard let self = self else { return }
                 print("\(coin) selecionada")
-                self.buttonMenuItems.setTitle(coin, for: .normal)
+                self.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
                 self.coinViewModel?.coinSelected?.name = coin
-                
             })
         }
         
-        // Cria um UIMenu usando os UIActions
-        let menuItems = UIMenu(title: "", options: .displayInline, children: menuActions)
-        
-        return menuItems
+        return UIMenu(title: "", options: .displayInline, children: menuActions)
     }
     
     private func bindViewModel() {
@@ -115,6 +111,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
             .sink { [weak self] coinsMenu in
                 let _ = coinsMenu.map({ coin in
                     self?.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
+                    self?.buttonMenuItems.menu = self?.createMenuButton()
                 })
             }
             .store(in: &cancellables)

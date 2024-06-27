@@ -4,7 +4,7 @@
 //
 //  Created by Victor Hugo Pacheco Araujo on 24/06/24.
 //
-
+ 
 import Combine
 import UIKit
 
@@ -22,7 +22,7 @@ class CoinViewModel {
     var symbolCoinWant: UIImage = UIImage(systemName: "bitcoinsign")!
     
     @Published var qtdHave: [Double] = []
-    @Published var coinsMenuButton: [String] = ["eth"] // coins that user have in the database
+    @Published var coinsMenuButton: [String] = [] // coins that user have in the database
     var coinToBuy: Coin
     
     @Published var coinTextField: Double = 0 {
