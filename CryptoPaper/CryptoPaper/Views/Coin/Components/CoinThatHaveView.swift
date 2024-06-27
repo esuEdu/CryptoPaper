@@ -98,10 +98,9 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
                 guard let self = self else { return }
                 print("\(coin) selecionada")
                 self.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
-                self.coinViewModel?.coinSelected?.name = coin
+                self.coinViewModel?.coinSelected = coin
             })
         }
-        
         return UIMenu(title: "", options: .displayInline, children: menuActions)
     }
     

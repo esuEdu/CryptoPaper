@@ -33,7 +33,7 @@ class CoinViewModel {
     @Published var balanceCoinWant: Double = 0
     @Published var qtdHaveInDollarOfCoinWant: Double = 0
     
-    var coinSelected: Coin?
+    var coinSelected: String?
     
     init(serviceManager: ServiceManager = ServiceManager(), coinsToBuy: Coin) {
         self.serviceManager = serviceManager
@@ -52,8 +52,10 @@ class CoinViewModel {
     
     private func updateMenuButtonOptions() async {
         if let coins = self.user?.coins {
+            dump(coins)
             for coin in coins {
                 self.coinsMenuButton.append(coin.name)
+                
             }
         }
     }
@@ -75,23 +77,22 @@ class CoinViewModel {
         self.qtdHaveInDollarOfCoinWant = balanceCoinWant * coinToBuy.amount
     }
     
-    func createTransaction(coinSold: Coin) {
+    func createTransaction(coinSelected: String) {
+        
+        guard let coins = user?.coins else {
+            return
+        }
+        
+        guard let coinSold = findCoin(byName: coinSelected, in: coins) else {
+            return
+        }
+        
         Task {
             await DataController.shared.addTransaction(coinBought: coinToBuy, coinSold: coinSold)
         }
     }
     
-//    private func fetchCoins() {
-//        serviceManager.fetchCoins { [weak self] result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let coins):
-//                    self?.coins = coins
-//                case .failure(let error):
-//                    print("Error fetching coins: \(error)")
-//                }
-//            }
-//        }
-//    }
-    
+    private func findCoin(byName name: String, in coins: [Coin]) -> Coin? {
+        return coins.first { $0.name == name }
+    }
 }

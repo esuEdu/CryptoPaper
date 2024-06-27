@@ -67,7 +67,7 @@ class CoinView: UIViewController {
     
     @objc func createTransaction() {
         if let coinSelected = coinViewModel?.coinSelected {
-            coinViewModel?.createTransaction(coinSold: coinSelected)
+            coinViewModel?.createTransaction(coinSelected: coinSelected)
             print("comprou")
         }
     }
