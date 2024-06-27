@@ -37,7 +37,9 @@ class CoinView: UIViewController {
         view.addSubview(coinThatHaveView)
         view.addSubview(coinThatWant)
         
+        
         view.addSubview(buyButton)
+        buyButton.addTarget(self, action: #selector(createTransaction), for: .touchUpInside)
 
         #warning("tirar o magic number 70")
         NSLayoutConstraint.activate([
@@ -57,6 +59,13 @@ class CoinView: UIViewController {
             buyButton.heightAnchor.constraint(equalToConstant: 50),
         ])
         
+    }
+    
+    @objc func createTransaction() {
+        if let coinSelected = coinViewModel?.coinSelected {
+            coinViewModel?.createTransaction(coinSold: coinSelected)
+            print("comprou")
+        }
     }
    
 }

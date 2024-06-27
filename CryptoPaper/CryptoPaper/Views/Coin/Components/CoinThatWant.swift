@@ -21,11 +21,11 @@ class CoinThatWant: UIView {
         return symbol
     }()
     
-    private let qtdHave: UILabel = {
+    private let quantInDollar: UILabel = {
         let qtd = UILabel()
         qtd.numberOfLines = 1
-        qtd.textAlignment = .left
-        qtd.font = .preferredFont(forTextStyle: .headline)
+        qtd.textAlignment = .right
+        qtd.font = .preferredFont(forTextStyle: .footnote)
         qtd.adjustsFontSizeToFitWidth = true
         qtd.translatesAutoresizingMaskIntoConstraints = false
         return qtd
@@ -54,8 +54,8 @@ class CoinThatWant: UIView {
         self.coinViewModel = coinViewModel
         
         addUI()
-        setConstraints()
         bindViewModel()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -65,20 +65,14 @@ class CoinThatWant: UIView {
     func addUI() {
         
         addSubview(coinSymbol)
-        addSubview(qtdHave)
+        addSubview(quantInDollar)
         addSubview(coinLabel)
         addSubview(balanceCoin)
         
         coinSymbol.image = coinViewModel?.symbolCoinWant
         
-        if let quantitite = coinViewModel?.qtdHave {
-            qtdHave.text = "\(quantitite)"
-        } else {
-            qtdHave.text = "Valor não disponível"
-        }
-        
         coinLabel.text = coinViewModel?.coinToBuy.name
-        
+                
     }
 
     func setConstraints() {
@@ -88,26 +82,35 @@ class CoinThatWant: UIView {
             coinSymbol.heightAnchor.constraint(equalToConstant: 30),
             coinSymbol.widthAnchor.constraint(equalToConstant: 30),
             
-            qtdHave.topAnchor.constraint(equalTo: coinSymbol.bottomAnchor),
-            qtdHave.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            qtdHave.widthAnchor.constraint(equalToConstant: 50),
-            
             coinLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             coinLabel.leadingAnchor.constraint(equalTo: coinSymbol.trailingAnchor, constant: 10),
             
             balanceCoin.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             balanceCoin.leadingAnchor.constraint(equalTo: coinLabel.trailingAnchor, constant: 10),
             balanceCoin.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            
+            quantInDollar.topAnchor.constraint(equalTo: balanceCoin.bottomAnchor),
+            quantInDollar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            
         ])
     }
     
     private func bindViewModel() {
-        coinViewModel?.$coinTextField
+        coinViewModel?.$balanceCoinWant
             .receive(on: RunLoop.main)
             .sink { [weak self] coinTextField in
                 self?.balanceCoin.text = "\(coinTextField)"
+//                print("\(coinTextField)")
             }
             .store(in: &cancellables)
+        
+        coinViewModel?.$qtdHaveInDollarOfCoinWant
+            .receive(on: RunLoop.main)
+            .sink { [weak self] qtdWant in
+                self?.quantInDollar.text = "\(qtdWant)"
+            }
+            .store(in: &cancellables)
+        
     }
     
 }
