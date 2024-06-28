@@ -322,7 +322,7 @@
 				9B2429BF2C2B684C007CC7F1 /* CoinThatWant.swift */,
 				9B2429C02C2B684C007CC7F1 /* TextFieldComponent.swift */,
 			);
-			name = Components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		9BA181C72C2CAE4D00327A17 /* CoinViewUITests */ = {
