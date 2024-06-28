@@ -8,25 +8,13 @@
 import UIKit
 import Combine
 
-struct Transaction{
-    var id: UUID
-    var date: Date
-    var coinBought: Coins
-    var coinSold: Coins
-}
-struct Coins{
-    var name: String
-    var amount: Double
-}
-
 class ExtractView: UIViewController {
 
     private var extractsTest: [Transactions] = []
-//    private var extractsTest: [Transaction] = [Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "BTC", amount: 1), coinSold: Coins(name: "USDT", amount: 61000)), Transaction(id: UUID(), date: Date(), coinBought: Coins(name: "ETH", amount: 345), coinSold: Coins(name: "USDT", amount: 10))]
     private var dataController = DataController()
     
     weak var coordinator: MainCoordinator?
-    private var viewModel = ExtractViewModel()
+    private var viewModel: ExtractViewModel?
     private var cancellables = Set<AnyCancellable>()
     private let balanceLabel = UILabel()
 
@@ -37,6 +25,16 @@ class ExtractView: UIViewController {
         tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.identifier)
         return tableView
     }()
+    
+    init(balance: Double) {
+        self.viewModel = ExtractViewModel()
+        self.viewModel?.model.totalBalance = balance
+        super.init(nibName: nil, bundle: nil) // Chame o inicializador designado da superclasse
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +79,7 @@ class ExtractView: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.model.$totalBalance
+        viewModel?.model.$totalBalance
             .receive(on: RunLoop.main)
             .sink { [weak self] totalBalance in
                 self?.balanceLabel.text = String(format: "$%.2f", totalBalance)
