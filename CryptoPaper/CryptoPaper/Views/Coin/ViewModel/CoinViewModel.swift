@@ -15,7 +15,6 @@ class CoinViewModel {
     
     var user: User?
     
-//    private var cancellables = Set<AnyCancellable>()
     private var serviceManager: ServiceManager
     
     var symbolCoinHave: UIImage = UIImage(systemName: "dollarsign")!
@@ -134,11 +133,6 @@ class CoinViewModel {
     
     private func findCoin(byName symbol: String, in coins: [CoinWrapper]) -> CoinWrapper? {
         return coins.first { $0.symbol == symbol }
-    }
-    
-    private func calculateAmountEachCoin() {
-       
-    
     }
     
     private func fetchCoins() {
