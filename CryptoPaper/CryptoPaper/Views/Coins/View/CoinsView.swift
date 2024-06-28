@@ -23,7 +23,7 @@ class CoinsListView: UIViewController {
     
     private let extractButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Extract", for: .normal)
+        button.setTitle(" Extract ", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
         button.backgroundColor = .systemBlue
