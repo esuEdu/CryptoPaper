@@ -11,7 +11,6 @@ import Combine
 class ExtractView: UIViewController {
 
     private var extractsTest: [Transactions] = []
-    private var dataController = DataController()
     
     weak var coordinator: MainCoordinator?
     private var viewModel: ExtractViewModel?
@@ -41,7 +40,7 @@ class ExtractView: UIViewController {
         
         setupUI()
         bindViewModel()
-        guard let data = dataController.fetchUsers().transactions else { return }
+        guard let data = DataController.shared.fetchUser().transactions else { return }
         self.extractsTest = data
         
     }

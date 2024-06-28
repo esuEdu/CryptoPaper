@@ -55,7 +55,7 @@ class CoinViewModel {
     
     private func getDatabase() {
         Task {
-            user = await DataController.shared.fetchUsers()
+            user = await DataController.shared.fetchUser()
             await updateMenuButtonOptions()
         }
     }
