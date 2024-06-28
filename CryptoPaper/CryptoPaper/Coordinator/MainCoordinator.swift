@@ -16,15 +16,27 @@ final class MainCoordinator: Coordinator {
         self.navigationController = navigationController
     }
 
-    
     func start() {
-        let view = ViewController()
+        let view = CoinsListView()
         view.coordinator = self
+        
         navigationController.pushViewController(view, animated: true)
     }
     
-    func goToSecondView() {
-        let view = CoinsView()
+    func goToCoinView(coin: Coin) {
+        let viewModel = CoinViewModel(coinsToBuy: coin)
+        let view = CoinView()
+        
+        view.coinViewModel = viewModel
+        view.coordinator = self
+        
+        navigationController.present(view, animated: true)
+    }
+    
+    func goToExtractView(balance: Double){
+        let view = ExtractView(balance: balance)
+        view.coordinator = self
+        
         navigationController.pushViewController(view, animated: true)
     }
 }
