@@ -3,7 +3,9 @@
 //  CryptoPaper
 //
 //  Created by Eduardo on 20/06/24.
-//
+
+import UIKit
+import Combine
 import UIKit
 import Combine
 
@@ -16,17 +18,21 @@ class CoinsListView: UIViewController {
     
     private let tableView = UITableView()
     private let balanceLabel = UILabel()
+    private let searchBar = UISearchBar()
+    private let refreshControl = UIRefreshControl()
     
     private let extractButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(" Extract ", for: .normal)
+        button.setTitle("Extract", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        button.backgroundColor = .black
+        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
-
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return button
     }()
+    
+    private let headerView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,43 +43,73 @@ class CoinsListView: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        
         self.title = "Coins"
         
-        balanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        balanceLabel.textAlignment = .center
-        balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        balanceLabel.accessibilityIdentifier = "Balance"
+        setupHeaderView()
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.delegate = self
+        searchBar.placeholder = "Search by ticket"
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CoinCell")
+        tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "CoinCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.accessibilityIdentifier = "Coin Table"
         
-        extractButton.addTarget(self, action: #selector(extractButtonTapped), for: .touchUpInside)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
         
-        view.addSubview(balanceLabel)
+        view.addSubview(headerView)
+        view.addSubview(searchBar)
         view.addSubview(tableView)
-        view.addSubview(extractButton)
         
         NSLayoutConstraint.activate([
-            balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 80),
             
-            extractButton.centerYAnchor.constraint(equalTo: balanceLabel.centerYAnchor),
-            extractButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchBar.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func setupHeaderView() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.backgroundColor = .white
+        
+        balanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        balanceLabel.textAlignment = .left
+        balanceLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        balanceLabel.accessibilityIdentifier = "Balance"
+        
+        extractButton.addTarget(self, action: #selector(extractButtonTapped), for: .touchUpInside)
+        
+        headerView.addSubview(balanceLabel)
+        headerView.addSubview(extractButton)
+        
+        NSLayoutConstraint.activate([
+            balanceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            balanceLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            
+            extractButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            extractButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)
         ])
     }
     
     @objc private func extractButtonTapped() {
         self.coordinator?.goToExtractView(balance: self.viewModel.totalBalance)
+    }
+    
+    @objc private func refreshData() {
+        viewModel.fetchCoins()
     }
 
     private func bindViewModel() {
@@ -88,27 +124,41 @@ class CoinsListView: UIViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
+                self?.refreshControl.endRefreshing()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$filteredCoins
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
             }
             .store(in: &cancellables)
     }
 }
 
+extension CoinsListView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterCoins(with: searchText)
+    }
+}
+
 extension CoinsListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.coins.count
+        return viewModel.filteredCoins.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath)
-        let coin = viewModel.coins[indexPath.row]
-        cell.textLabel?.text = "\(coin.symbol): $\(coin.price)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
+        let coin = viewModel.filteredCoins[indexPath.row]
+        cell.configure(with: coin)
         return cell
     }
 }
 
 extension CoinsListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let coin = viewModel.coins[indexPath.row]
+        let coin = viewModel.filteredCoins[indexPath.row]
         coordinator?.goToCoinView(coin: Coin(name: coin.symbol, amount: Double(coin.price) ?? 0))
     }
 }
