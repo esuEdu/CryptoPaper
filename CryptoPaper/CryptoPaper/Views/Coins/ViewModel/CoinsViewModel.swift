@@ -16,7 +16,11 @@ class CoinsViewModel {
     private var cancellables = Set<AnyCancellable>()
     private let serviceManager: ServiceManager
     
-    var user: User?
+    var user: User? {
+        didSet {
+            getBalance()
+        }
+    }
     
     init(serviceManager: ServiceManager = ServiceManager()) {
         self.serviceManager = serviceManager
@@ -25,7 +29,19 @@ class CoinsViewModel {
     }
     
     func getBalance() {
-        
+        if let coins = user?.coins {
+            for coin in coins {
+                if coin.name == "usd" {
+                    totalBalance = coin.amount
+                }else {
+                    let coinFind = findCoin(byName: coin.name, in: self.coins)
+                    if let coinFind {
+                        totalBalance = Double(coinFind.price) ?? 0.0
+                    }
+                    
+                }
+            }
+        }
     }
     
     func getData() {
@@ -45,5 +61,13 @@ class CoinsViewModel {
                 }
             }
         }
+    }
+    
+    private func findCoin(byName name: String, in coins: [Coin]) -> Coin? {
+        return coins.first { $0.name == name }
+    }
+    
+    private func findCoin(byName name: String, in coins: [CoinWrapper]) -> CoinWrapper? {
+        return coins.first { $0.symbol == name }
     }
 }
