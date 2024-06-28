@@ -33,8 +33,8 @@ final class MainCoordinator: Coordinator {
         navigationController.present(view, animated: true)
     }
     
-    func goToExtractView(){
-        let view = ExtractView()
+    func goToExtractView(balance: Double){
+        let view = ExtractView(balance: balance)
         view.coordinator = self
         
         navigationController.pushViewController(view, animated: true)
