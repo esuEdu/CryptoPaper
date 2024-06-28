@@ -56,11 +56,6 @@ class ServiceManager {
                 // Filtrando
                 coins = self.filterCoins(coins: coins, filter: filter)
                 
-                // Printando as moedas para garantir
-                for coin in coins {
-                    print(coin)
-                }
-                
                 completion(.success(coins))
             } catch {
                 completion(.failure(error))

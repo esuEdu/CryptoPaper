@@ -17,6 +17,17 @@ class CoinsListView: UIViewController {
     private let tableView = UITableView()
     private let balanceLabel = UILabel()
     
+    private let extractButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(" Extract ", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .white
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 10
+
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,19 +51,29 @@ class CoinsListView: UIViewController {
         tableView.delegate = self
         tableView.accessibilityIdentifier = "Coin Table"
         
+        extractButton.addTarget(self, action: #selector(extractButtonTapped), for: .touchUpInside)
+        
         view.addSubview(balanceLabel)
         view.addSubview(tableView)
+        view.addSubview(extractButton)
         
         NSLayoutConstraint.activate([
             balanceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             balanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
             
+            extractButton.centerYAnchor.constraint(equalTo: balanceLabel.centerYAnchor),
+            extractButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
             tableView.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    @objc private func extractButtonTapped() {
+        self.coordinator?.goToExtractView(balance: self.viewModel.totalBalance)
     }
 
     private func bindViewModel() {

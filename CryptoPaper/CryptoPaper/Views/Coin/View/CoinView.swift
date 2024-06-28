@@ -31,19 +31,19 @@ class CoinView: UIViewController {
         let coinThatHaveView = CoinThatHaveView(coinViewModel: coinViewModel)
         coinThatHaveView.translatesAutoresizingMaskIntoConstraints = false
         
-        let coinThatWant = CoinThatWant(coinViewModel: coinViewModel)
+        guard let viewModel = coinViewModel else {
+            return
+        }
+        
+        let coinThatWant = CoinThatWant(coinViewModel: viewModel)
         coinThatWant.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(coinThatHaveView)
         view.addSubview(coinThatWant)
         
         view.addSubview(buyButton)
-    
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-//        tapGesture.cancelsTouchesInView = false
-//        view.addGestureRecognizer(tapGesture)
+        buyButton.addTarget(self, action: #selector(createTransaction), for: .touchUpInside)
 
-        #warning("tirar o magic number 70")
         NSLayoutConstraint.activate([
             coinThatHaveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             coinThatHaveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -56,11 +56,18 @@ class CoinView: UIViewController {
             coinThatWant.heightAnchor.constraint(equalToConstant: 30),
             
             buyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            buyButton.topAnchor.constraint(equalTo: coinThatWant.bottomAnchor, constant: 100),
             buyButton.widthAnchor.constraint(equalToConstant: 300),
             buyButton.heightAnchor.constraint(equalToConstant: 50),
         ])
         
+    }
+    
+    @objc func createTransaction() {
+        if let coinSelected = coinViewModel?.coinSelected {
+            coinViewModel?.createTransaction(coinSelected: coinSelected)
+            dismiss(animated: true)
+        }
     }
    
 }

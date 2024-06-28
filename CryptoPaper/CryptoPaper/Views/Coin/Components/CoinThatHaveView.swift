@@ -4,12 +4,15 @@
 //
 //  Created by Victor Hugo Pacheco Araujo on 25/06/24.
 //
-
+ 
 import UIKit
+import Combine
 
 class CoinThatHaveView: UIView, TextFieldComponentDelegate {
    
     weak var coinViewModel: CoinViewModel?
+    
+    private var cancellables = Set<AnyCancellable>()
     
     private let coinSymbol: UIImageView = {
         let symbol = UIImageView()
@@ -23,7 +26,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         let qtd = UILabel()
         qtd.numberOfLines = 1
         qtd.textAlignment = .left
-        qtd.font = .preferredFont(forTextStyle: .headline)
+        qtd.font = .preferredFont(forTextStyle: .subheadline)
         qtd.adjustsFontSizeToFitWidth = true
         qtd.translatesAutoresizingMaskIntoConstraints = false
         return qtd
@@ -53,6 +56,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         self.coinViewModel = coinViewModel
         
         addUI()
+        bindViewModel()
         setConstraints()
     }
     
@@ -69,21 +73,11 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         
         coinSymbol.image = coinViewModel?.symbolCoinHave
         
-        if let quantitite = coinViewModel?.qtdHave {
-            qtdHave.text = "\(quantitite)"
-        } else {
-            qtdHave.text = "Valor não disponível"
-        }
-        
-        (coinViewModel?.coinsMenuButton ?? []).map { coin in
-            buttonMenuItems.setTitle(coin, for: .normal)
-        }
-        
         buttonMenuItems.addAction(UIAction(title: "", handler: { action in
-            print("action")
         }), for: .touchUpInside)
         
         buttonMenuItems.showsMenuAsPrimaryAction = true
+        
         buttonMenuItems.menu = createMenuButton()
         
         qtdTextField.textFieldToGetTheName.returnKeyType = .done
@@ -91,37 +85,54 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         qtdTextField.textFieldToGetTheName.autocorrectionType = .no
         qtdTextField.textFieldToGetTheName.keyboardAppearance = .default
         qtdTextField.textFieldToGetTheName.keyboardType = .decimalPad
+        qtdTextField.becomeFirstResponder()
         
         qtdTextField.delegate = self
     }
     
-    func createMenuButton() -> UIMenu {
-        // Verifica se coinsMenuButton não é nil, caso contrário, usa um array vazio
-        let menuActions = (coinViewModel?.coinsMenuButton ?? []).map { coin in
-            UIAction(title: coin, handler: { (action) in
-                // Aqui você pode adicionar o comportamento desejado para cada moeda
-                print("\(coin) selecionada")
-                self.buttonMenuItems.setTitle(coin, for: .normal)
-                
+    private func createMenuButton() -> UIMenu {
+        guard let viewModel = coinViewModel else { fatalError("viewModel not found") }
+        
+        let menuActions = viewModel.coinsMenuButton.map { coin in
+            UIAction(title: coin.uppercased(), handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
+                self.coinViewModel?.coinSelected = coin
             })
         }
-        
-        // Cria um UIMenu usando os UIActions
-        let menuItems = UIMenu(title: "Coins", options: .displayInline, children: menuActions)
-        
-        return menuItems
+        return UIMenu(title: "", options: .displayInline, children: menuActions)
     }
     
-    func setConstraints() {
+    private func bindViewModel() {
+        coinViewModel?.$coinsMenuButton
+            .receive(on: RunLoop.main)
+            .sink { [weak self] coinsMenu in
+                let _ = coinsMenu.map({ coin in
+                    self?.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
+                    self?.buttonMenuItems.menu = self?.createMenuButton()
+                })
+            }
+            .store(in: &cancellables)
+        
+        coinViewModel?.$qtdHave
+            .receive(on: RunLoop.main)
+            .sink { [weak self] qtd in
+                self?.qtdHave.text = "\(qtd)"
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             coinSymbol.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             coinSymbol.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
             coinSymbol.heightAnchor.constraint(equalToConstant: 30),
             coinSymbol.widthAnchor.constraint(equalToConstant: 30),
             
-            qtdHave.topAnchor.constraint(equalTo: coinSymbol.bottomAnchor),
+            qtdHave.topAnchor.constraint(equalTo: coinSymbol.bottomAnchor, constant: 10),
             qtdHave.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            qtdHave.widthAnchor.constraint(equalToConstant: 50),
+            //qtdHave.widthAnchor.constraint(equalToConstant: 100),
             
             buttonMenuItems.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             buttonMenuItems.leadingAnchor.constraint(equalTo: coinSymbol.trailingAnchor, constant: 10),
@@ -132,41 +143,41 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         ])
     }
     
-    func textFieldDidBeginEditing() {
-    }
+    func textFieldDidBeginEditing() {}
     
-    func textFieldDidEndEditing() {
-    }
+    func textFieldDidEndEditing() {}
     
     func textFieldDidChangeSelection() {
+        
+        
         // Verifique se a string da text field contém uma vírgula
         if let text = qtdTextField.textFieldToGetTheName.text {
             if text.contains(",") {
                 // Lide com o caso onde a string contém uma vírgula, se necessário
-                print("A string contém uma vírgula")
                 // Você pode substituir a vírgula por ponto, se for o caso
                 let textWithDot = text.replacingOccurrences(of: ",", with: ".")
                 if let doubleValue = Double(textWithDot) {
                     coinViewModel?.coinTextField = doubleValue
+                    
                 } else {
                     // Lide com o caso onde a conversão falha, se necessário
-                    coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+                    coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
+                    
                 }
             } else {
                 // Tente converter a string para Double diretamente
                 if let doubleValue = Double(text) {
+                    
                     coinViewModel?.coinTextField = doubleValue
                 } else {
                     // Lide com o caso onde a conversão falha, se necessário
-                    coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+                    coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
                 }
             }
         } else {
             // Lide com o caso onde a string é nula, se necessário
-            coinViewModel?.coinTextField = 0.0 // Valor padrão ou outra lógica
+            coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
         }
-
     }
 
-    
 }

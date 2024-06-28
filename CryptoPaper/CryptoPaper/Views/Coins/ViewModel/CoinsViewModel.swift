@@ -28,6 +28,7 @@ class CoinsViewModel {
         getData()
     }
     
+
     func getBalance() {
         if let coins = user?.coins {
             for coin in coins {
@@ -50,6 +51,7 @@ class CoinsViewModel {
         }
     }
     
+
     private func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {
