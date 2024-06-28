@@ -80,7 +80,7 @@ class CoinsListView: UIViewController {
         viewModel.$totalBalance
             .receive(on: RunLoop.main)
             .sink { [weak self] totalBalance in
-                self?.balanceLabel.text = String(format: "Balance: $%.2f", totalBalance)
+                self?.balanceLabel.text = String(format: "$%.2f", totalBalance)
             }
             .store(in: &cancellables)
         
