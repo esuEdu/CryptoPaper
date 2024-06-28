@@ -74,10 +74,10 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         coinSymbol.image = coinViewModel?.symbolCoinHave
         
         buttonMenuItems.addAction(UIAction(title: "", handler: { action in
-            print("action")
         }), for: .touchUpInside)
         
         buttonMenuItems.showsMenuAsPrimaryAction = true
+        
         buttonMenuItems.menu = createMenuButton()
         
         qtdTextField.textFieldToGetTheName.returnKeyType = .done
@@ -96,7 +96,6 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         let menuActions = viewModel.coinsMenuButton.map { coin in
             UIAction(title: coin.uppercased(), handler: { [weak self] _ in
                 guard let self = self else { return }
-                print("\(coin) selecionada")
                 self.buttonMenuItems.setTitle(coin.uppercased(), for: .normal)
                 self.coinViewModel?.coinSelected = coin
             })
@@ -118,11 +117,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         coinViewModel?.$qtdHave
             .receive(on: RunLoop.main)
             .sink { [weak self] qtd in
-                
-                for coinQtd in qtd {
-                    self?.qtdHave.text = "\(coinQtd)"
-                }
-                
+                self?.qtdHave.text = "\(qtd)"
             }
             .store(in: &cancellables)
         
@@ -159,7 +154,6 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
         if let text = qtdTextField.textFieldToGetTheName.text {
             if text.contains(",") {
                 // Lide com o caso onde a string contém uma vírgula, se necessário
-                print("A string contém uma vírgula")
                 // Você pode substituir a vírgula por ponto, se for o caso
                 let textWithDot = text.replacingOccurrences(of: ",", with: ".")
                 if let doubleValue = Double(textWithDot) {
@@ -167,7 +161,7 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
                     
                 } else {
                     // Lide com o caso onde a conversão falha, se necessário
-                    coinViewModel?.coinTextField = 25 // Valor padrão ou outra lógica
+                    coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
                     
                 }
             } else {
@@ -177,12 +171,12 @@ class CoinThatHaveView: UIView, TextFieldComponentDelegate {
                     coinViewModel?.coinTextField = doubleValue
                 } else {
                     // Lide com o caso onde a conversão falha, se necessário
-                    coinViewModel?.coinTextField = 45 // Valor padrão ou outra lógica
+                    coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
                 }
             }
         } else {
             // Lide com o caso onde a string é nula, se necessário
-            coinViewModel?.coinTextField = 3 // Valor padrão ou outra lógica
+            coinViewModel?.coinTextField = 0 // Valor padrão ou outra lógica
         }
     }
 

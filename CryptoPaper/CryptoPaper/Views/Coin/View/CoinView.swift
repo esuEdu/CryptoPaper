@@ -41,11 +41,9 @@ class CoinView: UIViewController {
         view.addSubview(coinThatHaveView)
         view.addSubview(coinThatWant)
         
-        
         view.addSubview(buyButton)
         buyButton.addTarget(self, action: #selector(createTransaction), for: .touchUpInside)
 
-        #warning("tirar o magic number 70")
         NSLayoutConstraint.activate([
             coinThatHaveView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             coinThatHaveView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -68,7 +66,7 @@ class CoinView: UIViewController {
     @objc func createTransaction() {
         if let coinSelected = coinViewModel?.coinSelected {
             coinViewModel?.createTransaction(coinSelected: coinSelected)
-            print("comprou")
+            dismiss(animated: true)
         }
     }
    

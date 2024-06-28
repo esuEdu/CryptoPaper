@@ -21,8 +21,14 @@ class CoinViewModel {
     var symbolCoinHave: UIImage = UIImage(systemName: "dollarsign")!
     var symbolCoinWant: UIImage = UIImage(systemName: "bitcoinsign")!
     
-    @Published var qtdHave: [Double] = []
-    @Published var coinsMenuButton: [String] = [] // coins that user have in the database
+    @Published var qtdHave: Double = 0.0
+    
+    @Published var coinsMenuButton: [String] = [] {
+        didSet {
+            coinSelected = coinsMenuButton.last
+        }
+    }
+    
     var coinToBuy: Coin
     
     @Published var coinTextField: Double = 0 {
@@ -33,7 +39,13 @@ class CoinViewModel {
     @Published var balanceCoinWant: Double = 0
     @Published var qtdHaveInDollarOfCoinWant: Double = 0
     
-    var coinSelected: String?
+    var coinSelected: String? {
+        didSet {
+            Task {
+                await updateQtdHaveOfTheCoin(coinSelected: coinSelected ?? "")
+            }
+        }
+    }
     
     init(serviceManager: ServiceManager = ServiceManager(), coinsToBuy: Coin) {
         self.serviceManager = serviceManager
@@ -46,30 +58,49 @@ class CoinViewModel {
         Task {
             user = await DataController.shared.fetchUsers()
             await updateMenuButtonOptions()
-            await updateQtdHaveOfTheCoin()
         }
     }
     
     private func updateMenuButtonOptions() async {
         if let coins = self.user?.coins {
-            dump(coins)
             for coin in coins {
                 self.coinsMenuButton.append(coin.name)
-                
+            }
+
+            // Ordena o array com base na condição que coloca "dolar" sempre no final
+            self.coinsMenuButton.sort {
+                if $0 == "usd" {
+                    return false
+                } else if $1 == "usd" {
+                    return true
+                } else {
+                    return $0 < $1
+                }
             }
         }
+
     }
     
-    private func updateQtdHaveOfTheCoin() async {
-        if let coins = self.user?.coins {
-            for coin in coins {
-                self.qtdHave.append(coin.amount)
-            }
-        }
+    private func updateQtdHaveOfTheCoin(coinSelected: String) async {
+        let coin = findCoin(byName: coinSelected, in: user?.coins ?? [])
+        qtdHave = coin?.amount ?? 0
     }
     
     private func calculateBalanceCoinWant()  {
-        self.balanceCoinWant = coinTextField / coinToBuy.amount
+
+        fetchCoins()
+        
+        if coinSelected == "usd" {
+            self.balanceCoinWant = coinTextField / coinToBuy.amount
+        } else {
+            
+            let coinSelectedValue = findCoin(byName: coinSelected ?? "", in: coins)
+            
+            if let doubleValue = Double(coinSelectedValue?.price ?? "") {
+                self.balanceCoinWant = doubleValue * coinTextField / coinToBuy.amount
+            }
+        }
+        
         calculateQtdInDollarOfCoinThatWant()
     }
     
@@ -87,12 +118,40 @@ class CoinViewModel {
             return
         }
         
+        let moeda = Coin(name: coinSold.name, amount: coinSold.amount)
+        
+        moeda.amount = coinTextField
+        coinToBuy.amount = balanceCoinWant
+        
         Task {
-            await DataController.shared.addTransaction(coinBought: coinToBuy, coinSold: coinSold)
+            await DataController.shared.addTransaction(coinBought: coinToBuy, coinSold: moeda)
         }
     }
     
     private func findCoin(byName name: String, in coins: [Coin]) -> Coin? {
         return coins.first { $0.name == name }
     }
+    
+    private func findCoin(byName symbol: String, in coins: [CoinWrapper]) -> CoinWrapper? {
+        return coins.first { $0.symbol == symbol }
+    }
+    
+    private func calculateAmountEachCoin() {
+       
+    
+    }
+    
+    private func fetchCoins() {
+        serviceManager.fetchCoins { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let coins):
+                    self?.coins = coins
+                case .failure(let error):
+                    print("Error fetching coins: \(error)")
+                }
+            }
+        }
+    }
+    
 }

@@ -99,7 +99,6 @@ class CoinThatWant: UIView {
         coinViewModel.$balanceCoinWant
             .receive(on: RunLoop.main)
             .sink { [weak self] coinTextField in
-//                print(coinTextField)
                 self?.balanceCoin.text = String(format: "%.8f", coinTextField)
             }
             .store(in: &cancellables)
@@ -107,7 +106,7 @@ class CoinThatWant: UIView {
         coinViewModel.$qtdHaveInDollarOfCoinWant
             .receive(on: RunLoop.main)
             .sink { [weak self] qtdWant in
-                self?.quantInDollar.text = "\(qtdWant)"
+                self?.quantInDollar.text = String(format: "%.2f", qtdWant)
             }
             .store(in: &cancellables)
         
