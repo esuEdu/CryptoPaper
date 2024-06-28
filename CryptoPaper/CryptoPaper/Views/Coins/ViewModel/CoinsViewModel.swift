@@ -4,7 +4,6 @@
 //
 //  Created by Eduardo on 20/06/24.
 //
-
 import Foundation
 import Combine
 import SwiftData
@@ -15,6 +14,7 @@ class CoinsViewModel {
             getBalance()
         }
     }
+    @Published var filteredCoins: [CoinWrapper] = []
     @Published var totalBalance: Double = 0.0
     
     private var cancellables = Set<AnyCancellable>()
@@ -28,7 +28,6 @@ class CoinsViewModel {
         getData()
     }
     
-
     func getBalance() {
         if let coins = user?.coins {
             for coin in coins {
@@ -51,17 +50,25 @@ class CoinsViewModel {
         }
     }
     
-
     private func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let coins):
                     self?.coins = coins
+                    self?.filteredCoins = coins
                 case .failure(let error):
                     print("Error fetching coins: \(error)")
                 }
             }
+        }
+    }
+    
+    func filterCoins(with searchText: String) {
+        if searchText.isEmpty {
+            filteredCoins = coins
+        } else {
+            filteredCoins = coins.filter { $0.symbol.lowercased().contains(searchText.lowercased()) }
         }
     }
     
