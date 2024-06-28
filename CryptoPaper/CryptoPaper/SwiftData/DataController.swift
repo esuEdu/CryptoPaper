@@ -37,7 +37,7 @@ class DataController {
         }
     }
     
-    func fetchUsers() -> User {
+    func fetchUser() -> User {
         do {
             let descriptor = FetchDescriptor<User>()
             if let fetchedModel = try container.mainContext.fetch(descriptor).first {
@@ -54,7 +54,7 @@ class DataController {
     func addTransaction(id: UUID = UUID(), date: Date = Date.now, coinBought: Coin, coinSold: Coin) {
         let newTransaction = Transactions(id: id, date: date, coinBought: coinBought, coinSold: coinSold)
         
-        let user = fetchUsers()
+        let user = fetchUser()
         
         if let coin = findCoin(byName: coinBought.name, in: user.coins) {
             updateCoin(coin: coin.name, Amount: coin.amount + coinBought.amount)
@@ -74,7 +74,7 @@ class DataController {
     func addCoin(name: String, amount: Double) {
         let newCoin = Coin(name: name, amount: amount)
         
-        let user = fetchUsers()
+        let user = fetchUser()
         
         user.coins.append(newCoin)
         
@@ -84,7 +84,7 @@ class DataController {
     
     // Update data
     private func updateCoin(coin: String, Amount: Double) {
-        let user = fetchUsers()
+        let user = fetchUser()
         
         let coin = findCoin(byName: coin, in: user.coins)
         

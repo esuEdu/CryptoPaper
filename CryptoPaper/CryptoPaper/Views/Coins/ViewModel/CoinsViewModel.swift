@@ -13,17 +13,45 @@ class CoinsViewModel {
     @Published var coins: [CoinWrapper] = []
     @Published var totalBalance: Double = 0.0
     
-    private var container: ModelContainer
-    
     private var cancellables = Set<AnyCancellable>()
     private let serviceManager: ServiceManager
     
-    init(serviceManager: ServiceManager = ServiceManager(), container: ModelContainer = DataController.shared.container) {
-        self.serviceManager = serviceManager
-        self.container = container
-        fetchCoins()
+    var user: User? {
+        didSet {
+            getBalance()
+        }
     }
     
+    init(serviceManager: ServiceManager = ServiceManager()) {
+        self.serviceManager = serviceManager
+        fetchCoins()
+        getData()
+    }
+    
+
+    func getBalance() {
+        if let coins = user?.coins {
+            for coin in coins {
+                if coin.name == "usd" {
+                    totalBalance = coin.amount
+                }else {
+                    let coinFind = findCoin(byName: coin.name, in: self.coins)
+                    if let coinFind {
+                        totalBalance = Double(coinFind.price) ?? 0.0
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    func getData() {
+        Task {
+            user = await DataController.shared.fetchUser()
+        }
+    }
+    
+
     private func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {
@@ -37,4 +65,11 @@ class CoinsViewModel {
         }
     }
     
+    private func findCoin(byName name: String, in coins: [Coin]) -> Coin? {
+        return coins.first { $0.name == name }
+    }
+    
+    private func findCoin(byName name: String, in coins: [CoinWrapper]) -> CoinWrapper? {
+        return coins.first { $0.symbol == name }
+    }
 }
