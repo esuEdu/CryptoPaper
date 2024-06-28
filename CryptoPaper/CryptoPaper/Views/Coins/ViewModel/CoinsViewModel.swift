@@ -10,17 +10,17 @@ import Combine
 import SwiftData
 
 class CoinsViewModel {
-    @Published var coins: [CoinWrapper] = []
+    @Published var coins: [CoinWrapper] = [] {
+        didSet {
+            getBalance()
+        }
+    }
     @Published var totalBalance: Double = 0.0
     
     private var cancellables = Set<AnyCancellable>()
     private let serviceManager: ServiceManager
     
-    var user: User? {
-        didSet {
-            getBalance()
-        }
-    }
+    var user: User?
     
     init(serviceManager: ServiceManager = ServiceManager()) {
         self.serviceManager = serviceManager
@@ -33,11 +33,11 @@ class CoinsViewModel {
         if let coins = user?.coins {
             for coin in coins {
                 if coin.name == "usd" {
-                    totalBalance = coin.amount
+                    totalBalance += coin.amount
                 }else {
                     let coinFind = findCoin(byName: coin.name, in: self.coins)
                     if let coinFind {
-                        totalBalance = Double(coinFind.price) ?? 0.0
+                        totalBalance += (Double(coinFind.price) ?? 0.0) * coin.amount
                     }
                     
                 }
