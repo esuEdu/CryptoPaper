@@ -86,7 +86,7 @@ class DataController {
     private func updateCoin(coin: String, Amount: Double) {
         let user = fetchUsers()
         
-        var coin = findCoin(byName: coin, in: user.coins)
+        let coin = findCoin(byName: coin, in: user.coins)
         
         coin?.amount = Amount
         try? container.mainContext.save()

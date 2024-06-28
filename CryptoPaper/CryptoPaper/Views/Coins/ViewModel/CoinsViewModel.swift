@@ -24,10 +24,6 @@ class CoinsViewModel {
         fetchCoins()
     }
     
-    func getBalance() {
-        
-    }
-    
     private func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {

@@ -33,11 +33,6 @@ class ViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-
-
-//    @objc func goToSecondView() {
-//        coordinator?.goToSecondView()
-//    }
     
     // Função para chamar a API
     private func fetchCoins() {
