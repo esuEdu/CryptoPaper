@@ -29,6 +29,7 @@ class CoinsViewModel {
     }
     
     func getBalance() {
+        totalBalance = 0.0
         if let coins = user?.coins {
             for coin in coins {
                 if coin.name == "usd" {
@@ -38,7 +39,6 @@ class CoinsViewModel {
                     if let coinFind {
                         totalBalance += (Double(coinFind.price) ?? 0.0) * coin.amount
                     }
-                    
                 }
             }
         }
@@ -50,7 +50,7 @@ class CoinsViewModel {
         }
     }
     
-    private func fetchCoins() {
+    func fetchCoins() {
         serviceManager.fetchCoins { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

@@ -6,6 +6,8 @@
 
 import UIKit
 import Combine
+import UIKit
+import Combine
 
 class CoinsListView: UIViewController {
     
@@ -17,6 +19,7 @@ class CoinsListView: UIViewController {
     private let tableView = UITableView()
     private let balanceLabel = UILabel()
     private let searchBar = UISearchBar()
+    private let refreshControl = UIRefreshControl()
     
     private let extractButton: UIButton = {
         let button = UIButton(type: .system)
@@ -53,6 +56,9 @@ class CoinsListView: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.accessibilityIdentifier = "Coin Table"
+        
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
         
         view.addSubview(headerView)
         view.addSubview(searchBar)
@@ -101,12 +107,16 @@ class CoinsListView: UIViewController {
     @objc private func extractButtonTapped() {
         self.coordinator?.goToExtractView(balance: self.viewModel.totalBalance)
     }
+    
+    @objc private func refreshData() {
+        viewModel.fetchCoins()
+    }
 
     private func bindViewModel() {
         viewModel.$totalBalance
             .receive(on: RunLoop.main)
             .sink { [weak self] totalBalance in
-                self?.balanceLabel.text = String(format: "Balance: $%.2f", totalBalance)
+                self?.balanceLabel.text = String(format: "$%.2f", totalBalance)
             }
             .store(in: &cancellables)
         
@@ -114,6 +124,7 @@ class CoinsListView: UIViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
+                self?.refreshControl.endRefreshing()
             }
             .store(in: &cancellables)
         
@@ -148,8 +159,6 @@ extension CoinsListView: UITableViewDataSource {
 extension CoinsListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let coin = viewModel.filteredCoins[indexPath.row]
-        if let price = Double(coin.price) {
-            coordinator?.goToCoinView(coin: Coin(name: coin.symbol, amount: price))
-        }
+        coordinator?.goToCoinView(coin: Coin(name: coin.symbol, amount: Double(coin.price) ?? 0))
     }
 }
