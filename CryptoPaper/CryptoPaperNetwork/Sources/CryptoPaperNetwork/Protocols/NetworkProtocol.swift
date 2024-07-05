@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @available(iOS 13.0, *)
-internal protocol NetworkProtocol {
+public protocol NetworkProtocol {
     func sendRequest<T: Codable>(endpoint: EndpointProtocol) async throws -> T?
     func sendRequest<T: Codable>(endpoint: EndpointProtocol, type: T.Type) -> AnyPublisher<T, NetworkError>
 }

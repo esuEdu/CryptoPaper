@@ -8,12 +8,12 @@
 import Foundation
 
 // Define a protocol for errors
-internal protocol ErrorProtocol: LocalizedError {
+public protocol ErrorProtocol: LocalizedError {
     var title: String? { get }
     var code: Int { get }
 }
 
-enum NetworkError: ErrorProtocol {
+public enum NetworkError: ErrorProtocol {
     case invalidURL
     case requestFailed
     case decodingError
@@ -21,7 +21,7 @@ enum NetworkError: ErrorProtocol {
     case unauthorized
     case unknown
     
-    var title: String? {
+    public var title: String? {
         switch self {
             case .invalidURL:
                 return "Invalid URL"
@@ -38,7 +38,7 @@ enum NetworkError: ErrorProtocol {
         }
     }
     
-    var code: Int {
+    public var code: Int {
         switch self {
             case .invalidURL:
                 return 1001
@@ -55,7 +55,7 @@ enum NetworkError: ErrorProtocol {
         }
     }
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
             case .invalidURL:
                 return "The URL provided was invalid."

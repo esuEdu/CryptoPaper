@@ -9,7 +9,7 @@ public class NetworkManager: NetworkProtocol {
     
     public init() {}
     
-    func sendRequest<T: Codable>(endpoint: EndpointProtocol) async throws -> T? {
+    public func sendRequest<T: Codable>(endpoint: EndpointProtocol) async throws -> T? {
         guard let request = createRequest(endpoint: endpoint) else {
             throw NetworkError.invalidURL
         }
@@ -35,7 +35,7 @@ public class NetworkManager: NetworkProtocol {
         }
     }
     
-    func sendRequest<T: Codable>(endpoint: EndpointProtocol, type: T.Type) -> AnyPublisher<T, NetworkError> {
+    public func sendRequest<T: Codable>(endpoint: EndpointProtocol, type: T.Type) -> AnyPublisher<T, NetworkError> {
         guard let request = createRequest(endpoint: endpoint) else {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
         }

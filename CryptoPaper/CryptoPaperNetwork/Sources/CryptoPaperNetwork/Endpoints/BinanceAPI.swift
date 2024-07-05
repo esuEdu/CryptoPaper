@@ -11,15 +11,15 @@ public enum BinanceAPI: EndpointProtocol {
     
     case getPrice(symbol: String?)
     
-    var host: String {
+    public var host: String {
         return "api.binance.com"
     }
     
-    var scheme: String {
+    public var scheme: String {
         return "https"
     }
     
-    var path: String {
+    public var path: String {
         switch self {
             case .getPrice(let symbol):
                 if let symbol = symbol {
@@ -29,32 +29,32 @@ public enum BinanceAPI: EndpointProtocol {
         }
     }
     
-    var method: RequestMethod {
+    public var method: RequestMethod {
         switch self {
             case .getPrice:
                 return .get
         }
     }
     
-    var header: [String: String]? {
+    public var header: [String: String]? {
         switch self {
             default:
                 return nil
         }
     }
     
-    var body: [String: String]? {
+    public var body: [String: String]? {
         switch self {
             default:
                 return nil
         }
     }
     
-    var queryParams: [String: String]? {
+    public var queryParams: [String: String]? {
         return nil
     }
     
-    var pathParams: [String: String]? {
+    public var pathParams: [String: String]? {
         return nil
     }
 }

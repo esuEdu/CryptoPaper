@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal protocol EndpointProtocol {
+public protocol EndpointProtocol {
     var host: String { get }
     var scheme: String { get }
     var path: String { get }
@@ -18,7 +18,7 @@ internal protocol EndpointProtocol {
     var pathParams: [String: String]? { get }  // Added for query parameters
 }
 
-internal enum RequestMethod: String {
+public enum RequestMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
