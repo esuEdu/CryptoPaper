@@ -6,8 +6,6 @@
 
 import UIKit
 import Combine
-import UIKit
-import Combine
 
 class CoinsListView: UIViewController {
     

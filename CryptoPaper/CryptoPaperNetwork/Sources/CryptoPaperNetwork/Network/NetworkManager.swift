@@ -7,14 +7,18 @@ import Combine
 @available(iOS 13.0, *)
 public class NetworkManager: NetworkProtocol {
     
-    public init() {}
+    private let session: URLSessionProtocol
+    
+    public init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
     
     public func sendRequest<T: Codable>(endpoint: EndpointProtocol) async throws -> T? {
         guard let request = createRequest(endpoint: endpoint) else {
             throw NetworkError.invalidURL
         }
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.requestFailed

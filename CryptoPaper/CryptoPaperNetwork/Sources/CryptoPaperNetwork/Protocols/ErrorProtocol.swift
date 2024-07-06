@@ -72,3 +72,5 @@ public enum NetworkError: ErrorProtocol {
         }
     }
 }
+
+extension NetworkError: Equatable {}
